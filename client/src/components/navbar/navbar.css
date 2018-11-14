@@ -1,0 +1,23 @@
+#nav-container {
+    background-color: black;
+    height: 100px;
+    text-align: center;
+    overflow: hidden;
+}
+
+nav {
+    border: 1px red solid;
+    padding-top: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 25px;
+    margin-left: 20px;
+}
+
+.active {
+    color: black;
+    background-color: white;
+}

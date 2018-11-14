@@ -20,6 +20,8 @@
   "homepage": "https://github.com/ChrisJonathan22/Recipe-App#readme",
   "dependencies": {
     "concurrently": "^4.0.1",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "react": "^16.6.3",
+    "react-router-dom": "^4.3.1"
   }
 }
