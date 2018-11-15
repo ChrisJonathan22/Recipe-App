@@ -1,12 +1,13 @@
-#nav-container {
+ /*
+ 
+ #nav-container {
     background-color: black;
-    height: 100px;
+    height: 100px; 
     text-align: center;
     overflow: hidden;
 }
 
 nav {
-    border: 1px red solid;
     padding-top: 30px;
 }
 
@@ -17,7 +18,15 @@ nav a {
     margin-left: 20px;
 }
 
-.active {
+nav a:hover {
     color: black;
     background-color: white;
 }
+
+.active {
+    color: black;
+    background-color: white;
+} 
+
+
+*/
