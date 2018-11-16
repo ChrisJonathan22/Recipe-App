@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Home.css';
+import  Salmon from '../../../src/images/Salmon.jpg';
 
 class Home extends Component {
     constructor(){
@@ -9,8 +10,12 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <div id="title">
-                    <h1>This is my home page.</h1>
+                <div id='title'>
+                    <h1>Welcome to my Recipe App</h1>
+                </div>
+                <div id = 'img-holder'>
+                    <img id = 'salmon' src = {Salmon} />
+                    <p>Here is a perfectly cooked salmon.</p>
                 </div>
             </div>
         );
