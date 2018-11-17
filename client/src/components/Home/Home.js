@@ -14,7 +14,7 @@ class Home extends Component {
                     <h1>Welcome to my Recipe App</h1>
                 </div>
                 <div id = 'img-holder'>
-                    <img id = 'salmon' src = {Salmon} />
+                    <img id = 'salmon' alt = 'an image of a salmon' src = {Salmon} />
                     <p>Here is a perfectly cooked salmon.</p>
                 </div>
             </div>

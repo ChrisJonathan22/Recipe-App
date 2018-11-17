@@ -9,7 +9,7 @@ class Contact extends Component {
     render() {
         return (
             <div>
-                <div id="title">
+                <div id="contact-title">
                     <h1>This is my contact page.</h1>
                 </div>
             </div>

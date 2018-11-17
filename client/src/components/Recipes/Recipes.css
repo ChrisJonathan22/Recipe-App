@@ -1,0 +1,54 @@
+#recipes-title {
+    text-align: center;
+}
+
+#recipes-para {
+    text-align: center;
+    padding-bottom: 100px;
+}
+
+#recipes-para p {
+    font-size: 30px;
+    font-weight: 100;
+    color: red;
+}
+
+#recipes-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#recipes-left {
+    background-color: white;
+    border: 1px 1px 1px;
+    border-right: 0px;
+    border-color: black;
+    border-style: solid;
+    width: 30%;
+    height: 500px;
+    float: left;
+    overflow: hidden;
+}
+
+#recipes-list-container {
+    text-align: center;
+}
+
+
+#recipes-list-container ul li {
+    list-style-position: inside;
+}
+
+
+
+
+
+#recipes-right {
+    background-color: white;
+    border: 1px green dashed;
+    width: 70%;
+    height: 500px;
+    float: right;
+    overflow: hidden;
+}
+
