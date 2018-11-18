@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node Server/server.js",
-    "server": "nodemon Server/server.js",
+    "Server": "nodemon Server/server.js",
     "client": "cd client && npm start"
   },
   "repository": {
@@ -19,8 +19,16 @@
   },
   "homepage": "https://github.com/ChrisJonathan22/Recipe-App#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "concurrently": "^4.0.1",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.16.4",
+    "gridfs-stream": "^1.1.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.3.12",
+    "multer": "^1.4.1",
+    "multer-gridfs-storage": "^3.2.3",
     "react": "^16.6.3",
     "react-router-dom": "^4.3.1"
   }
