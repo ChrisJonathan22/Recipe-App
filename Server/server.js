@@ -31,19 +31,43 @@ app.use((req, res, next) => { //allow cross origin requests
 });
 
 // Import database
-const { conn } = require('./database');
+const { connect } = require('./database');
 // Import model/ collection
 const { recipes } = require('./database'); 
 
+const mongoURI = 'mongodb://chris:chris22@ds211504.mlab.com:11504/recipes';
+let gfs;
 
-app.get('/api/customers', (req, res) => {
-        const customers = [
-                {id: 1, firstName: 'John', lastName: 'Doe'},
-                {id: 2, firstName: 'Jane', lastName: 'Doe'},
-                {id: 3, firstName: 'Mary', lastName: 'Doe'}
-        ]
-        res.json(customers);
+// Handling the database errors
+connect.on('error', console.error.bind(console, 'connection error:'));
+connect.once('open', () => {
+        // Init stream
+        gfs = Grid(connect.db, mongoose.mongo);
+        gfs.collection('uploads');
+        console.log('Database connection successful');     
+});
+
+app.get('/api/recipes', (req, res) => {
+        recipes.find({ title: 'Salmon' }, (err, data) => {
+                if(err) console.log(err);
+                else {
+                        res.json({recipes: data});
+                        console.log('Documents successfully found.');
+                        
+                }
+                
+        });
+});
+
+app.post('/api/addrecipe', (req, res) => {
+        res.json({message: 'Recipe received'}, console.log('Another one!'));
 });
 
 app.listen(port, console.log(`The Recipe App is running on port ${port}`)
 );
+
+
+// const recipe = new recipes({ title: 'Salmon', image: [1,2,3], steps: 'do this and then do that' });
+// recipe.save((err, recipes) => {
+//         if(err) console.log(err);     
+// });

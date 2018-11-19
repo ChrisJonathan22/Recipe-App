@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node Server/server.js",
     "Server": "nodemon Server/server.js",
-    "client": "cd client && npm start"
+    "Client": "cd client && npm start"
   },
   "repository": {
     "type": "git",

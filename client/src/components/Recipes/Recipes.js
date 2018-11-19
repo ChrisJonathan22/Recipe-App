@@ -4,6 +4,18 @@ import './Recipes.css';
 class Recipes extends Component {
     constructor(){
         super();
+        this.state = {
+            recipes: []
+        }
+    }
+
+    componentDidMount() {
+        fetch('http://localhost:5000/api/recipes')
+        .then(res => res.json())
+        .then(data => this.setState({ recipes: data.recipes }, () => console.log('Recipes fetched...', data.recipes)
+        // It took me a while to figure out why I was having an issue. I couldn't display the fetched data because the response was an object with an array of objects but I expected it to be an array.
+        // So I changed it from recipes: data to recipes: data.recipes
+        ));
     }
 
     render() {
@@ -22,11 +34,10 @@ class Recipes extends Component {
                         </div>
                         <div id = 'recipes-list-container'>
                             <ul>
-                                <li>&bull; Item1</li>
-                                <li>&bull; Item2</li>
-                                <li>&bull; Item3</li>
-                                <li>&bull; Item4</li>
-                                <li>&bull; Item5</li>
+                                {  
+                                    this.state.recipes.map(recipe =>  <li id = {recipe._id} >&bull;{recipe.title}</li>)
+                                } 
+                                {console.log(this.state.recipes)}
                             </ul>
                         </div>
                     </div>
