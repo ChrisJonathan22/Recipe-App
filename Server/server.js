@@ -47,6 +47,29 @@ connect.once('open', () => {
         console.log('Database connection successful');     
 });
 
+// Create storage engine
+const storage = new GridFsStorage({
+        url: mongoURI,
+        file: (req, file) => {
+                return new Promise((resolve, reject) => {
+                        crypto.randomBytes(16, (err, buf) => {
+                                if(err) {
+                                        return reject(err);
+                                }
+                                const filename = buf.toString('hex') + path.extname(file.originalname);
+                                const fileInfo = {
+                                        filename: filename,
+                                        bucketname: 'uploads'
+                                };
+
+                                resolve(fileInfo);
+                        });
+                });
+        }
+});
+
+const upload = multer({ storage });
+
 app.get('/api/recipes', (req, res) => {
         recipes.find({ title: 'Salmon' }, (err, data) => {
                 if(err) console.log(err);
