@@ -13,7 +13,6 @@ const methodOverride = require('method-override');
 
 // Create an express app
 const app = express();
-const port = 5000;
 
 // Middlewares
 app.use(bodyParser.urlencoded({
@@ -34,8 +33,10 @@ app.use((req, res, next) => { //allow cross origin requests
 const { connect } = require('./database');
 // Import model/ collection
 const { recipes } = require('./database'); 
+// Set the port number to 5000
+const port = 5000;
 
-const mongoURI = 'mongodb://chris:chris22@ds211504.mlab.com:11504/recipes';
+const mongoURI = 'mongodb://chris:chris22@ds211774.mlab.com:11774/recipesdatabase';
 let gfs;
 
 // Handling the database errors
@@ -70,27 +71,25 @@ const storage = new GridFsStorage({
 
 const upload = multer({ storage });
 
+// Creating a route for POST requests from the form
+app.post('/upload', upload.single('image'), (req, res) => {
+        // To upload multiple images it would be upload.array() and req.files and also you would have the change the type of the image within the schema from Object to Array since the result will be a list of images.
+        const recipe = new recipes({ title: req.body.title, image: req.file, steps: req.body.steps });
+        recipe.save((err, recipes) => {
+        if(err) console.log(err);
+        console.log('New recipe successfully added...');           
+});
+        setTimeout(() => {res.redirect('http://localhost:3000/')}, 5000);
+});
+
 app.get('/api/recipes', (req, res) => {
         recipes.find({ title: 'Salmon' }, (err, data) => {
                 if(err) console.log(err);
                 else {
                         res.json({recipes: data});
-                        console.log('Documents successfully found.');
-                        
-                }
-                
+                        console.log('Documents successfully found.'); 
+                }  
         });
 });
 
-app.post('/api/addrecipe', (req, res) => {
-        res.json({message: 'Recipe received'}, console.log('Another one!'));
-});
-
-app.listen(port, console.log(`The Recipe App is running on port ${port}`)
-);
-
-
-// const recipe = new recipes({ title: 'Salmon', image: [1,2,3], steps: 'do this and then do that' });
-// recipe.save((err, recipes) => {
-//         if(err) console.log(err);     
-// });
+app.listen(port, console.log(`The Recipe App is running on port ${port}`));

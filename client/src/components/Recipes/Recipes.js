@@ -43,10 +43,10 @@ class Recipes extends Component {
                     </div>
                     <div id = 'recipes-right'>
                         <div id = 'recipes-form-holder'>
-                            <form>
-                                <input id = 'form-title' type = 'text' placeholder = 'Enter the title' />
-                                <input id = 'form-image' type = 'file' placeholder = 'Upload an image' />
-                                <textarea id = 'form-steps' placeholder = 'Enter instructions...'></textarea>
+                            <form method = 'POST' action = 'http://localhost:5000/upload' enctype = 'multipart/form-data'>
+                                <input id = 'form-title' type = 'text' placeholder = 'Enter the title' name = 'title' />
+                                <input id = 'form-image' type = 'file' placeholder = 'Upload an image' name = 'image' />
+                                <textarea id = 'form-steps' placeholder = 'Enter instructions...' name = 'steps'></textarea>
                                 <input id = 'form-button' type = 'submit' value = 'Submit' />
                             </form>
                         </div>
