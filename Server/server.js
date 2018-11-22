@@ -79,10 +79,24 @@ app.post('/upload', upload.single('image'), (req, res) => {
         if(err) console.log(err);
         console.log('New recipe successfully added...');           
 });
-        setTimeout(() => {res.redirect('http://localhost:3000/')}, 5000);
+        setTimeout(() => {res.redirect('http://localhost:3000/')}, 1000);
 });
 
+
+// Find all recipes stored
 app.get('/api/recipes', (req, res) => {
+        recipes.find((err, data) => {
+                if(err) console.log(err);
+                else {
+                        res.json({recipes: data});
+                        console.log('Documents successfully found.'); 
+                }  
+        });
+});
+
+
+// Find all recipes with Salmon as a title
+app.get('/api/recipes/salmon', (req, res) => {
         recipes.find({ title: 'Salmon' }, (err, data) => {
                 if(err) console.log(err);
                 else {
@@ -91,5 +105,22 @@ app.get('/api/recipes', (req, res) => {
                 }  
         });
 });
+
+
+// Basic route to get all files
+app.get('/files', (req,res) => {
+
+        gfs.files.find().toArray((err, files) => {
+            // Check if files
+            if(!files || files.length === 0) {
+                return res.status(404).json({
+                    err: 'No files exist'
+                });
+            }
+            // If files exist
+            return res.json({files});
+        });
+    })
+
 
 app.listen(port, console.log(`The Recipe App is running on port ${port}`));

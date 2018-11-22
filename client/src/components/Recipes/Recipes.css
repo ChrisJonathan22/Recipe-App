@@ -100,3 +100,17 @@
 
 /* The End */
 
+/* This is the message section */
+
+#message {
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: lightcoral;
+    width: 400px;
+    height: 200px;
+    padding-top: 20px;
+}
+
+
+/* The End */

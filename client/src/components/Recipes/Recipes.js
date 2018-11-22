@@ -5,9 +5,18 @@ class Recipes extends Component {
     constructor(){
         super();
         this.state = {
-            recipes: []
+            recipes: [],
+            showMe: false
         }
+        this.showMessage = this.showMessage.bind(this);
     }
+
+    showMessage() {
+      this.setState({
+          showMe: true
+      });
+    }
+  
 
     componentDidMount() {
         fetch('http://localhost:5000/api/recipes')
@@ -17,6 +26,9 @@ class Recipes extends Component {
         // So I changed it from recipes: data to recipes: data.recipes
         ));
     }
+
+   
+
 
     render() {
         return (
@@ -36,8 +48,7 @@ class Recipes extends Component {
                             <ul>
                                 {  
                                     this.state.recipes.map(recipe =>  <li id = {recipe._id} >&bull;{recipe.title}</li>)
-                                } 
-                                {console.log(this.state.recipes)}
+                                }
                             </ul>
                         </div>
                     </div>
@@ -47,8 +58,16 @@ class Recipes extends Component {
                                 <input id = 'form-title' type = 'text' placeholder = 'Enter the title' name = 'title' />
                                 <input id = 'form-image' type = 'file' placeholder = 'Upload an image' name = 'image' />
                                 <textarea id = 'form-steps' placeholder = 'Enter instructions...' name = 'steps'></textarea>
-                                <input id = 'form-button' type = 'submit' value = 'Submit' />
+                                <input id = 'form-button' type = 'submit' value = 'Submit' onClick = {this.showMessage} />
                             </form>
+                            {
+                                this.state.showMe ? 
+                                    <div id = 'message'>
+                                        <h3>Recipe successfully added!</h3>
+                                    </div> 
+                                    :
+                                    null
+                            }
                         </div>
                     </div>
                 </div>
@@ -57,4 +76,6 @@ class Recipes extends Component {
     }
 }
 
+
 export default Recipes;
+
