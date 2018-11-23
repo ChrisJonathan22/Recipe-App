@@ -107,20 +107,30 @@ app.get('/api/recipes/salmon', (req, res) => {
 });
 
 
-// Basic route to get all files
-app.get('/files', (req,res) => {
-
-        gfs.files.find().toArray((err, files) => {
-            // Check if files
-            if(!files || files.length === 0) {
-                return res.status(404).json({
-                    err: 'No files exist'
-                });
-            }
-            // If files exist
-            return res.json({files});
+app.get('/image/:filename', (req, res) => {
+        gfs.files.findOne({ filename: req.params.filename  }, (err, data) => {
+                if(!data || data.length === 0) return res.status(404).json({ err: 'No file exists' });
+                else {
+                        res.json({recipes: data});
+                        console.log('Image found.'); 
+                }  
         });
-    })
+});
+
+// Basic route to get all files
+// app.get('/files', (req,res) => {
+
+//         gfs.files.find().toArray((err, files) => {
+//             // Check if files
+//             if(!files || files.length === 0) {
+//                 return res.status(404).json({
+//                     err: 'No files exist'
+//                 });
+//             }
+//             // Files exist
+//             return res.json({files});
+//         });
+//     });
 
 
 app.listen(port, console.log(`The Recipe App is running on port ${port}`));
