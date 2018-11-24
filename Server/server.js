@@ -89,7 +89,7 @@ app.get('/api/recipes', (req, res) => {
                 if(err) console.log(err);
                 else {
                         res.json({recipes: data});
-                        console.log('Documents successfully found.'); 
+                        console.log('Recipes successfully found.'); 
                 }  
         });
 });
@@ -101,7 +101,7 @@ app.get('/api/recipes/salmon', (req, res) => {
                 if(err) console.log(err);
                 else {
                         res.json({recipes: data});
-                        console.log('Documents successfully found.'); 
+                        console.log('Salmon recipes found successfully found.'); 
                 }  
         });
 });
