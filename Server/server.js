@@ -74,7 +74,7 @@ const upload = multer({ storage });
 // Creating a route for POST requests from the form
 app.post('/upload', upload.single('image'), (req, res) => {
         // To upload multiple images it would be upload.array() and req.files and also you would have the change the type of the image within the schema from Object to Array since the result will be a list of images.
-        const recipe = new recipes({ title: req.body.title, image: req.file, steps: req.body.steps });
+        const recipe = new recipes({ title: req.body.title, image: req.file, steps: req.body.steps });        
         recipe.save((err, recipes) => {
         if(err) console.log(err);
         console.log('New recipe successfully added...');           
@@ -95,42 +95,33 @@ app.get('/api/recipes', (req, res) => {
 });
 
 
-// Find all recipes with Salmon as a title
-app.get('/api/recipes/salmon', (req, res) => {
-        recipes.find({ title: 'Salmon' }, (err, data) => {
+app.get('/api/recipes/images', (req, res) => {
+        recipes.find((err, image) => {
                 if(err) console.log(err);
                 else {
-                        res.json({recipes: data});
-                        console.log('Salmon recipes found successfully found.'); 
+                        const readstream = gfs.createReadStream(image[1].image.filename);
+                        readstream.pipe(res);
+                        // res.json({recipes: image[0].image.size});
+                        console.log('Recipes successfully found.'); 
                 }  
         });
 });
 
-
-app.get('/image/:filename', (req, res) => {
-        gfs.files.findOne({ filename: req.params.filename  }, (err, data) => {
-                if(!data || data.length === 0) return res.status(404).json({ err: 'No file exists' });
-                else {
-                        res.json({recipes: data});
-                        console.log('Image found.'); 
-                }  
-        });
-});
 
 // Basic route to get all files
-// app.get('/files', (req,res) => {
+app.get('/files', (req, res) => {
+        gfs.files.find().toArray((err, files) => {
+                // Check if files
+                if (!files || files.length === 0) {
+                        return res.status(404).json({
+                                err: 'No files exist'
+                        });
+                }
 
-//         gfs.files.find().toArray((err, files) => {
-//             // Check if files
-//             if(!files || files.length === 0) {
-//                 return res.status(404).json({
-//                     err: 'No files exist'
-//                 });
-//             }
-//             // Files exist
-//             return res.json({files});
-//         });
-//     });
+                // Files exist
+                return res.json(files);
+        });
+});
 
 
 app.listen(port, console.log(`The Recipe App is running on port: ${port}`));
