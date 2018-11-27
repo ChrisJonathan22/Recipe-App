@@ -60,7 +60,12 @@ const storage = new GridFsStorage({
                                 const filename = buf.toString('hex') + path.extname(file.originalname);
                                 const fileInfo = {
                                         filename: filename,
-                                        bucketname: 'uploads'
+                                        bucketName: 'uploads' 
+                                        // I spent a long time trying to figure out why the files weren't
+                                        // being saved in uploads collection and the reason was because 
+                                        // instead of using the bucketName property I previously used bucketname
+                                        //  and because no error where thrown I had no idea what was wrong because
+                                        //  I was able to save files to my main collection "recipes"  
                                 };
 
                                 resolve(fileInfo);
@@ -69,16 +74,16 @@ const storage = new GridFsStorage({
         }
 });
 
-const upload = multer({ storage });
+const upload = multer({ storage: storage });
 
 // Creating a route for POST requests from the form
 app.post('/upload', upload.single('image'), (req, res) => {
         // To upload multiple images it would be upload.array() and req.files and also you would have the change the type of the image within the schema from Object to Array since the result will be a list of images.
-        const recipe = new recipes({ title: req.body.title, image: req.file, steps: req.body.steps });        
-        recipe.save((err, recipes) => {
-        if(err) console.log(err);
-        console.log('New recipe successfully added...');           
-});
+//         const recipe = new recipes({ title: req.body.title, image: req.file, steps: req.body.steps });        
+//         recipe.save((err, recipes) => {
+//         if(err) console.log(err);
+//         console.log('New recipe successfully added...');           
+// });
         setTimeout(() => {res.redirect('http://localhost:3000/')}, 1000);
 });
 
@@ -96,10 +101,10 @@ app.get('/api/recipes', (req, res) => {
 
 
 app.get('/api/recipes/images', (req, res) => {
-        recipes.find((err, image) => {
+        gfs.files.find((err, image) => {
                 if(err) console.log(err);
                 else {
-                        const readstream = gfs.createReadStream(image[1].image.filename);
+                        const readstream = gfs.createReadStream(image);
                         readstream.pipe(res);
                         // res.json({recipes: image[0].image.size});
                         console.log('Recipes successfully found.'); 
