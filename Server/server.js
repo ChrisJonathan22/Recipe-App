@@ -43,7 +43,7 @@ let gfs;
 connect.on('error', console.error.bind(console, 'connection error:'));
 connect.once('open', () => {
         // Init stream
-        gfs = Grid(connect.db, mongoose.mongo);
+        gfs = Grid(connect.db, mongoose.mongo, {useNewUrlParser: true});
         gfs.collection('uploads');
         console.log('Database connection successful');     
 });
@@ -79,11 +79,11 @@ const upload = multer({ storage: storage });
 // Creating a route for POST requests from the form
 app.post('/upload', upload.single('image'), (req, res) => {
         // To upload multiple images it would be upload.array() and req.files and also you would have the change the type of the image within the schema from Object to Array since the result will be a list of images.
-//         const recipe = new recipes({ title: req.body.title, image: req.file, steps: req.body.steps });        
-//         recipe.save((err, recipes) => {
-//         if(err) console.log(err);
-//         console.log('New recipe successfully added...');           
-// });
+        const recipe = new recipes({ title: req.body.title, image: req.file, steps: req.body.steps });        
+        recipe.save((err, recipes) => {
+        if(err) console.log(err);
+        console.log('New recipe successfully added...');           
+});
         setTimeout(() => {res.redirect('http://localhost:3000/')}, 1000);
 });
 
@@ -100,20 +100,7 @@ app.get('/api/recipes', (req, res) => {
 });
 
 
-app.get('/api/recipes/images', (req, res) => {
-        gfs.files.find((err, image) => {
-                if(err) console.log(err);
-                else {
-                        const readstream = gfs.createReadStream(image);
-                        readstream.pipe(res);
-                        // res.json({recipes: image[0].image.size});
-                        console.log('Recipes successfully found.'); 
-                }  
-        });
-});
-
-
-// Basic route to get all files
+// Basic route to get all files GET /files
 app.get('/files', (req, res) => {
         gfs.files.find().toArray((err, files) => {
                 // Check if files
@@ -122,11 +109,62 @@ app.get('/files', (req, res) => {
                                 err: 'No files exist'
                         });
                 }
-
                 // Files exist
                 return res.json(files);
         });
 });
 
+// Basic route to get a single file  GET /files/:filename
+app.get('/files/:filename', (req, res) =>{
+        gfs.files.findOne({filename: req.params.filename}, (err, file) => {
+                // Check if file
+                if (!file || file.length === 0) {
+                        return res.status(404).json({
+                                err: 'No file exists'
+                        });
+                }
+                // File exists
+                return res.json(file);
+        });
+});
+
+
+// Basic route to display a single image  GET /image/:filename
+app.get('/image/:filename', (req, res) =>{
+        gfs.files.findOne({filename: req.params.filename}, (err, file) => {
+                // Check if file
+                if (!file || file.length === 0) {
+                        return res.status(404).json({
+                                err: 'No file exists'
+                        });
+                }
+                // Check if image
+                if(file.contentType === 'image/jpeg' || file.contentType === 'image/jpg' || file.contentType === 'image/png') {
+                        // Read output to browser
+                        const readstream = gfs.createReadStream(file.filename);
+                        readstream.pipe(res);
+                } else {
+                        res.status(404).json({
+                                err: 'Not an image'
+                        });
+                }
+        });
+});
+
+
+app.get('/hey/:filename', (req, res) =>{
+        gfs.files.findOne({filename: req.params.filename}, (err, file) => {
+                // Check if file
+                if (!file || file.length === 0) {
+                        return res.status(404).json({
+                                err: 'No file exists'
+                        });
+                }
+                // File exists
+                // res.contentType(file.contentType);
+                // res.send(file);
+                res.render('jade', {files: file});
+        });
+});
 
 app.listen(port, console.log(`The Recipe App is running on port: ${port}`));

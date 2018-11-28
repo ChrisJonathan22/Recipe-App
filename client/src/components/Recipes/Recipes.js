@@ -21,7 +21,7 @@ class Recipes extends Component {
     componentDidMount() {
         fetch('http://localhost:5000/api/recipes')
         .then(res => res.json())
-        .then(data => this.setState({ recipes: data.recipes }, () => console.log('Recipes fetched...', data.recipes[0].image.contentType)
+        .then(data => this.setState({ recipes: data.recipes }, () => console.log('Recipes fetched...', data.recipes[0])
         // It took me a while to figure out why I was having an issue. I couldn't display the fetched data because the response was an object with an array of objects but I expected it to be an array.
         // So I changed it from recipes: data to recipes: data.recipes
         ));
