@@ -6,9 +6,11 @@ class Recipes extends Component {
         super();
         this.state = {
             recipes: [],
-            showMe: false
+            showMe: false,
+            src: ''
         }
         this.showMessage = this.showMessage.bind(this);
+        this.getData = this.getData.bind(this);
     }
 
     showMessage() {
@@ -16,7 +18,28 @@ class Recipes extends Component {
           showMe: true
       });
     }
-  
+
+    // This method takes the image before the form data is sent to the database, it turns the image to a base64 text and saves it in the state.
+    // I need to do a post request and save the image within the collection.
+    // Do a fetch request and save the data inside the state, then display it.
+    getData(files) {
+        let file = document.getElementById('form-image').files[0];
+        let reader = new FileReader();
+        reader.onload = ((theFile) => {
+            return (e) => { 
+                // console.log(e.target.result);
+                this.setState({src : e.target.result});
+                console.log('This data is coming from the state ' + this.state.src);
+                
+                
+            }; 
+        })(file);
+        reader.readAsDataURL(file);
+        // console.log(file);
+    }
+    
+    
+
 
     componentDidMount() {
         fetch('http://localhost:5000/api/recipes')
@@ -57,15 +80,14 @@ class Recipes extends Component {
                                 <input id = 'form-title' type = 'text' placeholder = 'Enter the title' name = 'title' />
                                 <input id = 'form-image' type = 'file' placeholder = 'Upload an image' name = 'image' />
                                 <textarea id = 'form-steps' placeholder = 'Enter instructions...' name = 'steps'></textarea>
-                                <input id = 'form-button' type = 'submit' value = 'Submit' onClick = {this.showMessage} />
+                                <input id = 'form-button' type = 'submit' value = 'Submit' onClick = {this.showMessage} onMouseEnter = {this.getData} />
                             </form>
                             {
                                 this.state.showMe ? 
                                     <div id = 'message'>
                                         <h3>Recipe successfully added!</h3>
                                     </div> 
-                                    :
-                                    null
+                                    :null
                             }
                         </div>
                     </div>

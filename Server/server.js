@@ -60,7 +60,7 @@ const storage = new GridFsStorage({
                                 const filename = buf.toString('hex') + path.extname(file.originalname);
                                 const fileInfo = {
                                         filename: filename,
-                                        bucketName: 'uploads' 
+                                        bucketName: 'uploads',
                                         // I spent a long time trying to figure out why the files weren't
                                         // being saved in uploads collection and the reason was because 
                                         // instead of using the bucketName property I previously used bucketname
