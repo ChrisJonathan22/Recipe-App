@@ -88,6 +88,14 @@
     width: 60%;
 }
 
+#form-duration {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px black solid;
+    border-radius: 5px;
+    width: 60%;
+}
+
 #form-steps {
     width: 60%;
     border-radius: 5px;
@@ -112,5 +120,21 @@
     padding-top: 20px;
 }
 
+
+/* The End */
+
+
+/* This is the preview section */
+
+#image-preview-container {
+    text-align: center;
+}
+
+#image-preview-container img {
+    height: 200px;
+    border: 1px black solid;
+    border-radius: 50%;
+    box-shadow: 5px 10px 5px 10px;
+}
 
 /* The End */

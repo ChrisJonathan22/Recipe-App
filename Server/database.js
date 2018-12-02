@@ -11,6 +11,7 @@ const connect = mongoose.connection;
 let recipeSchema = new mongoose.Schema({
     title: String,
     image: Object,
+    duration: String,
     steps: String
 });
 

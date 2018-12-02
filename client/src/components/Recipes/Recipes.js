@@ -78,8 +78,9 @@ class Recipes extends Component {
                         <div id = 'recipes-form-holder'>
                             <form method = 'POST' action = 'http://localhost:5000/upload' enctype = 'multipart/form-data'>
                                 <input id = 'form-title' type = 'text' placeholder = 'Enter the title' name = 'title' />
-                                <input id = 'form-image' type = 'file' placeholder = 'Upload an image' name = 'image' />
-                                <textarea id = 'form-steps' placeholder = 'Enter instructions...' name = 'steps'></textarea>
+                                <input id = 'form-image' type = 'file' placeholder = 'Upload an image' name = 'image' multiple />
+                                <input id = 'form-duration' type = 'text' placeholder = 'Enter the duration' name = 'duration'/>
+                                <textarea id = 'form-steps' placeholder = 'Enter steps...' name = 'steps'></textarea>
                                 <input id = 'form-button' type = 'submit' value = 'Submit' onClick = {this.showMessage} onMouseEnter = {this.getData} />
                             </form>
                             {
@@ -89,6 +90,9 @@ class Recipes extends Component {
                                     </div> 
                                     :null
                             }
+                        </div>
+                        <div id = 'image-preview-container'>
+                            <img src = {this.state.src} />
                         </div>
                     </div>
                 </div>
