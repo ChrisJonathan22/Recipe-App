@@ -131,10 +131,10 @@
 }
 
 #image-preview-container img {
-    height: 200px;
-    border: 1px black solid;
+    height: 150px;
+    /* border: 1px solid; */
     border-radius: 50%;
-    box-shadow: 5px 10px 5px 10px;
+    box-shadow: 5px 10px 30px rgb(77, 74, 74);
 }
 
 /* The End */

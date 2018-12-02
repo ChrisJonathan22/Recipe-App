@@ -11,8 +11,11 @@ class Recipes extends Component {
         }
         this.showMessage = this.showMessage.bind(this);
         this.getData = this.getData.bind(this);
+        this.sendData = this.sendData.bind(this);
+        this.showMessageAndSendData = this.showMessageAndSendData.bind(this);
     }
 
+    // This method display a success message when the submit button has been clicked 
     showMessage() {
       this.setState({
           showMe: true
@@ -38,13 +41,45 @@ class Recipes extends Component {
         // console.log(file);
     }
     
-    
+    // This method does a Post request with the data entered
+    sendData() {
+        let obj = {
+            title: document.getElementById('form-title').value,
+            image: this.state.src,
+            duration: document.getElementById('form-duration').value,
+            steps: document.getElementById('form-steps').value
+        };
 
+        fetch('http://localhost:5000/upload', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: obj.title,
+                image: obj.image,
+                duration: obj.duration,
+                steps: obj.steps
+            })
+        })
+        .then((res) => {
+            console.log('Data sent!');
+            
+        });
+    }
+    
+    // This method runs both the showMessage and sendData method when the submit button is clicked
+    showMessageAndSendData(){
+        this.showMessage();
+        this.sendData();
+    }
 
     componentDidMount() {
+        // This is requesting data from the api
         fetch('http://localhost:5000/api/recipes')
         .then(res => res.json())
-        .then(data => this.setState({ recipes: data.recipes }, () => console.log('Recipes fetched...', data.recipes[0])
+        .then(data => this.setState({ recipes: data.recipes }, () => console.log('Recipes fetched...', data.recipes[1])
         // It took me a while to figure out why I was having an issue. I couldn't display the fetched data because the response was an object with an array of objects but I expected it to be an array.
         // So I changed it from recipes: data to recipes: data.recipes
         ));
@@ -76,12 +111,12 @@ class Recipes extends Component {
                     </div>
                     <div id = 'recipes-right'>
                         <div id = 'recipes-form-holder'>
-                            <form method = 'POST' action = 'http://localhost:5000/upload' enctype = 'multipart/form-data'>
+                            <form >
                                 <input id = 'form-title' type = 'text' placeholder = 'Enter the title' name = 'title' />
-                                <input id = 'form-image' type = 'file' placeholder = 'Upload an image' name = 'image' multiple />
+                                <input id = 'form-image' type = 'file' placeholder = 'Upload an image' name = 'image' />
                                 <input id = 'form-duration' type = 'text' placeholder = 'Enter the duration' name = 'duration'/>
                                 <textarea id = 'form-steps' placeholder = 'Enter steps...' name = 'steps'></textarea>
-                                <input id = 'form-button' type = 'submit' value = 'Submit' onClick = {this.showMessage} onMouseEnter = {this.getData} />
+                                <input id = 'form-button' type = 'submit' value = 'Submit' onClick = {this.showMessageAndSendData} onMouseEnter = {this.getData} />
                             </form>
                             {
                                 this.state.showMe ? 

@@ -48,6 +48,7 @@ connect.once('open', () => {
         console.log('Database connection successful');     
 });
 
+// This part isn't needed anymore since I'm sending the image or images over as strings.
 // Create storage engine
 const storage = new GridFsStorage({
         url: mongoURI,
@@ -77,9 +78,9 @@ const storage = new GridFsStorage({
 const upload = multer({ storage: storage });
 
 // Creating a route for POST requests from the form
-app.post('/upload', upload.single('image'), (req, res) => {
+app.post('/upload',(req, res) => {
         // To upload multiple images it would be upload.array() and req.files and also you would have the change the type of the image within the schema from Object to Array since the result will be a list of images.
-        const recipe = new recipes({ title: req.body.title, image: req.file, duration: req.body.duration, steps: req.body.steps });        
+        const recipe = new recipes({ title: req.body.title, image: req.body.image, duration: req.body.duration, steps: req.body.steps });        
         recipe.save((err, recipes) => {
         if(err) console.log(err);
         console.log('New recipe successfully added...');           

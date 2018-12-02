@@ -10,7 +10,7 @@ const connect = mongoose.connection;
 // Create a Schema or db structure
 let recipeSchema = new mongoose.Schema({
     title: String,
-    image: Object,
+    image: String,
     duration: String,
     steps: String
 });
