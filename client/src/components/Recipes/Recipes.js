@@ -7,12 +7,14 @@ class Recipes extends Component {
         this.state = {
             recipes: [],
             showMe: false,
-            src: ''
+            src: '',
+            title: ''
         }
         this.showMessage = this.showMessage.bind(this);
         this.getData = this.getData.bind(this);
         this.sendData = this.sendData.bind(this);
         this.showMessageAndSendData = this.showMessageAndSendData.bind(this);
+        this.fetchRecipe = this.fetchRecipe.bind(this);
     }
 
     // This method display a success message when the submit button has been clicked 
@@ -22,7 +24,8 @@ class Recipes extends Component {
       });
     }
 
-    // This method takes the image before the form data is sent to the database, it turns the image to a base64 text and saves it in the state.
+    // This method takes the image before the form data is sent to the database, 
+    // it turns the image to a base64 text and saves it in the state.
     // I need to do a post request and save the image within the collection.
     // Do a fetch request and save the data inside the state, then display it.
     getData(files) {
@@ -38,7 +41,6 @@ class Recipes extends Component {
             }; 
         })(file);
         reader.readAsDataURL(file);
-        // console.log(file);
     }
     
     // This method does a Post request with the data entered
@@ -75,6 +77,18 @@ class Recipes extends Component {
         this.sendData();
     }
 
+    // This method will fetch data belonging to the recipe title clicked on
+    // It'll know which element was clicked on by using the event object or e in this case
+    fetchRecipe(e) {
+        // This regex will remove the bullet point from the string and then store it within state
+        let regex = /[^a-zA-Z0-9]+/;
+        let titleText = e.target.innerText.replace(regex, '');
+        this.setState({title: titleText});
+        // fetch();
+        console.log(this.state.title);
+        // fetch
+    }
+
     componentDidMount() {
         // This is requesting data from the api
         fetch('http://localhost:5000/api/recipes')
@@ -104,7 +118,7 @@ class Recipes extends Component {
                         <div id = 'recipes-list-container'>
                             <ul>
                                 {  
-                                    this.state.recipes.map(recipe =>  <li id = {recipe._id} >&bull;{recipe.title}</li>)
+                                    this.state.recipes.map(recipe =>  <li id = {recipe._id} onClick = {this.fetchRecipe}>&bull;{recipe.title}</li>)
                                 }
                             </ul>
                         </div>

@@ -153,18 +153,13 @@ app.get('/image/:filename', (req, res) =>{
 });
 
 
-app.get('/hey/:filename', (req, res) =>{
-        gfs.files.findOne({filename: req.params.filename}, (err, file) => {
-                // Check if file
-                if (!file || file.length === 0) {
-                        return res.status(404).json({
-                                err: 'No file exists'
-                        });
+app.get('/api/recipes/single', (req, res) =>{
+        recipes.findOne({title: req.body.title}, (err, data) => {
+                if(err) console.log(err);
+                else {
+                        res.json({recipe: data});
+                        console.log('Single recipe found');
                 }
-                // File exists
-                // res.contentType(file.contentType);
-                // res.send(file);
-                res.render('jade', {files: file});
         });
 });
 
