@@ -8,7 +8,13 @@ class Recipes extends Component {
             recipes: [],
             showMe: false,
             src: '',
-            title: ''
+            title: '',
+            document: {
+                title: '',
+                image: '',
+                duration: '',
+                steps: ''
+            }
         }
         this.showMessage = this.showMessage.bind(this);
         this.getData = this.getData.bind(this);
@@ -33,11 +39,7 @@ class Recipes extends Component {
         let reader = new FileReader();
         reader.onload = ((theFile) => {
             return (e) => { 
-                // console.log(e.target.result);
-                this.setState({src : e.target.result});
-                console.log('This data is coming from the state ' + this.state.src);
-                
-                
+                this.setState({src : e.target.result});                
             }; 
         })(file);
         reader.readAsDataURL(file);
@@ -45,6 +47,7 @@ class Recipes extends Component {
     
     // This method does a Post request with the data entered
     sendData() {
+        // This object contains all the data entered including the image as base64
         let obj = {
             title: document.getElementById('form-title').value,
             image: this.state.src,
@@ -52,12 +55,14 @@ class Recipes extends Component {
             steps: document.getElementById('form-steps').value
         };
 
+        // Send the data
         fetch('http://localhost:5000/upload', {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
+            // Turn the object to json
             body: JSON.stringify({
                 title: obj.title,
                 image: obj.image,
@@ -66,6 +71,7 @@ class Recipes extends Component {
             })
         })
         .then((res) => {
+            // A message to let me know that the data has been sent
             console.log('Data sent!');
             
         });
@@ -79,19 +85,40 @@ class Recipes extends Component {
 
     // This method will fetch data belonging to the recipe title clicked on
     // It'll know which element was clicked on by using the event object or e in this case
+    // I'm doing a post request with the title and I'm receiving the data related to that titled document
     fetchRecipe(e) {
         // This regex will remove the bullet point from the string and then store it within state
         let regex = /[^a-zA-Z0-9]+/;
         let titleText = e.target.innerText.replace(regex, '');
+        // Once we have the desired string, add the value to the state
         this.setState({title: titleText});
-        // fetch();
-        console.log(this.state.title);
-        // fetch
-    }
+        // Send data, specifically the title
+        fetch('http://localhost:5000/api/recipes/single', {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        // Turn it to json
+        body: JSON.stringify({
+            title: this.state.title
+        })
+    })
+    // Receive the document found if the search matches and turn it to json
+    .then((res) => {
+        return res.json();   
+    })
+    // Now the data is in json format, update the state with the date
+    .then((data) => {
+        this.setState({document: {title: data.title, image: data.image, duration: data.duration, steps: data.steps}});
+        console.log('Data received from the search.');
+    });
+        }
 
     componentDidMount() {
         // This is requesting data from the api
         fetch('http://localhost:5000/api/recipes')
+        // I'm requesting data, turning the response which will be every found document and then I'm saving it to the state
         .then(res => res.json())
         .then(data => this.setState({ recipes: data.recipes }, () => console.log('Recipes fetched...', data.recipes[1])
         // It took me a while to figure out why I was having an issue. I couldn't display the fetched data because the response was an object with an array of objects but I expected it to be an array.
@@ -141,6 +168,13 @@ class Recipes extends Component {
                             }
                         </div>
                         <div id = 'image-preview-container'>
+                        {
+                            // If this.state.src is empty do nothing and if it isn't display the image
+                            // if (!this.state.src === null || !this.state.src === undefined) {
+
+                            // }
+
+                        }
                             <img src = {this.state.src} />
                         </div>
                     </div>

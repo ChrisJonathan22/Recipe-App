@@ -152,12 +152,12 @@ app.get('/image/:filename', (req, res) =>{
         });
 });
 
-
-app.get('/api/recipes/single', (req, res) =>{
+// Receive a post request with the title, do a search and then return the found document.
+app.post('/api/recipes/single', (req, res) => {
         recipes.findOne({title: req.body.title}, (err, data) => {
                 if(err) console.log(err);
                 else {
-                        res.json({recipe: data});
+                        res.json(data);
                         console.log('Single recipe found');
                 }
         });
