@@ -75,6 +75,9 @@ class Recipes extends Component {
             console.log('Data sent!');
             
         });
+        // setTimeout(() => {
+        //     window.location = 'http://localhost:3000/';
+        // }, 1000);
     }
     
     // This method runs both the showMessage and sendData method when the submit button is clicked
