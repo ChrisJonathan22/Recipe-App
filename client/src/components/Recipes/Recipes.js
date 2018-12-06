@@ -93,8 +93,12 @@ class Recipes extends Component {
         // This regex will remove the bullet point from the string and then store it within state
         let regex = /[^a-zA-Z0-9]+/;
         let titleText = e.target.innerText.replace(regex, '');
+        console.log(titleText);
+        
         // Once we have the desired string, add the value to the state
         this.setState({title: titleText});
+        console.log(this.state.title);
+        
         // Send data, specifically the title
         fetch('http://localhost:5000/api/recipes/single', {
         method: 'post',
@@ -104,7 +108,10 @@ class Recipes extends Component {
         },
         // Turn it to json
         body: JSON.stringify({
-            title: this.state.title
+            // title: this.state.title
+            // The state isn't updated from the first clicked it currently requires a second click
+            // The other issue is that when the second click registered even if the second click was applied on a different element
+            title: titleText
         })
     })
     // Receive the document found if the search matches and turn it to json
