@@ -36,7 +36,7 @@
     border-color: black;
     border-style: solid;
     width: 30%;
-    height: 500px;
+    height: 700px;
     float: left;
     overflow: hidden;
 }
@@ -66,7 +66,7 @@
     background-color: white;
     border: 1px red dashed;
     width: 70%;
-    height: 500px;
+    height: 700px;
     float: right;
     overflow: hidden;
 }
@@ -130,11 +130,14 @@
     text-align: center;
 }
 
-#image-preview-container img {
+#image-preview-container img, #recipe-preview-container img {
     height: 150px;
     /* border: 1px solid; */
     border-radius: 50%;
     box-shadow: 5px 10px 30px rgb(77, 74, 74);
 }
 
+#recipe-preview-container {
+    text-align: center;
+}
 /* The End */

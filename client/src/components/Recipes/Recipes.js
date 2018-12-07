@@ -30,10 +30,12 @@ class Recipes extends Component {
       });
     }
 
-    // This method takes the image before the form data is sent to the database, 
-    // it turns the image to a base64 text and saves it in the state.
-    // I need to do a post request and save the image within the collection.
-    // Do a fetch request and save the data inside the state, then display it.
+    /*
+        This method takes the image before the form data is sent to the database, 
+        it turns the image to a base64 text and saves it in the state.
+        I need to do a post request and save the image within the collection.
+        Do a fetch request and save the data inside the state, then display it.
+    */
     getData(files) {
         let file = document.getElementById('form-image').files[0];
         let reader = new FileReader();
@@ -85,19 +87,26 @@ class Recipes extends Component {
         this.showMessage();
         this.sendData();
     }
+    /*
+        This method will fetch data belonging to the recipe title clicked on
+        It'll know which element was clicked on by using the event object or e in this case
+        I'm doing a post request with the title and I'm receiving the data related to that titled document
+    */
 
-    // This method will fetch data belonging to the recipe title clicked on
-    // It'll know which element was clicked on by using the event object or e in this case
-    // I'm doing a post request with the title and I'm receiving the data related to that titled document
     fetchRecipe(e) {
-        // This regex will remove the bullet point from the string and then store it within state
+        /*
+            This regex will remove the bullet point from the string, the bullet point is added to the text within the HTML
+            It is not the typical unordered list item bullet point and then store it within state
+        */    
         let regex = /[^a-zA-Z0-9]+/;
         let titleText = e.target.innerText.replace(regex, '');
-        console.log(titleText);
         
-        // Once we have the desired string, add the value to the state
-        this.setState({title: titleText});
-        console.log(this.state.title);
+        /* 
+            setState works Asynchronously and if you have multiple setStates they will not be
+            updated one by one instead they'll be updated as a group.
+            If you need to update the state separately rather than using this.setState({title: data})
+            You could add a callback like so this.setState({title: data}, function () { console.log('State changed'); })
+        */
         
         // Send data, specifically the title
         fetch('http://localhost:5000/api/recipes/single', {
@@ -108,9 +117,6 @@ class Recipes extends Component {
         },
         // Turn it to json
         body: JSON.stringify({
-            // title: this.state.title
-            // The state isn't updated from the first clicked it currently requires a second click
-            // The other issue is that when the second click registered even if the second click was applied on a different element
             title: titleText
         })
     })
@@ -118,11 +124,15 @@ class Recipes extends Component {
     .then((res) => {
         return res.json();   
     })
-    // Now the data is in json format, update the state with the date
+    // Now the data is in json format, update the state with the data
     .then((data) => {
         this.setState({document: {title: data.title, image: data.image, duration: data.duration, steps: data.steps}});
         console.log('Data received from the search.');
+        console.log(this.state.document);
+        
     });
+
+
         }
 
     componentDidMount() {
@@ -179,13 +189,19 @@ class Recipes extends Component {
                         </div>
                         <div id = 'image-preview-container'>
                         {
-                            // If this.state.src is empty do nothing and if it isn't display the image
-                            // if (!this.state.src === null || !this.state.src === undefined) {
+                            /* If this.state.src is empty do nothing and if it isn't display the image
+                                if (!this.state.src === null || !this.state.src === undefined) {
 
-                            // }
+                                }
+                            */
 
                         }
                             <img src = {this.state.src} />
+                        </div>
+                        <div id = "recipe-preview-container">
+                            <h4>{this.state.document.title}</h4>
+                            <img src = {this.state.document.image} />
+                            <p>{this.state.document.steps}</p>
                         </div>
                     </div>
                 </div>
