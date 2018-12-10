@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {browserHistory} from 'react';
 import './Recipes.css';
 
 class Recipes extends Component {
@@ -38,13 +39,20 @@ class Recipes extends Component {
     */
     getData(files) {
         let file = document.getElementById('form-image').files[0];
-        let reader = new FileReader();
-        reader.onload = ((theFile) => {
+        if(file) {
+            let reader = new FileReader();
+            reader.onload = ((theFile) => {
             return (e) => { 
                 this.setState({src : e.target.result});                
             }; 
-        })(file);
-        reader.readAsDataURL(file);
+            })(file);
+            reader.readAsDataURL(file);
+        }
+        else {
+            this.setState({src: "https://via.placeholder.com/150x150"});
+            alert("No file selected");
+        }
+        
     }
     
     // This method does a Post request with the data entered
@@ -74,12 +82,13 @@ class Recipes extends Component {
         })
         .then((res) => {
             // A message to let me know that the data has been sent
-            console.log('Data sent!');
-            
+            console.log('Data sent!');            
         });
         // setTimeout(() => {
         //     window.location = 'http://localhost:3000/';
         // }, 1000);
+        setTimeout(() => {browserHistory.push('home');}, 2000);
+
     }
     
     // This method runs both the showMessage and sendData method when the submit button is clicked
