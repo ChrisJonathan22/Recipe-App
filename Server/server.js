@@ -83,7 +83,11 @@ app.post('/upload',(req, res) => {
         const recipe = new recipes({ title: req.body.title, image: req.body.image, duration: req.body.duration, steps: req.body.steps });        
         recipe.save((err, recipes) => {
         if(err) console.log(err);
-        console.log('New recipe successfully added...');
+        else {
+                console.log('New recipe successfully added...');
+                res.redirect('http://localhost:3000/');
+        }
+        
         // setTimeout(() => {res.redirect('http://localhost:3000/')}, 500);           
 });
         // setTimeout(() => {res.redirect('http://localhost:3000/')}, 500);

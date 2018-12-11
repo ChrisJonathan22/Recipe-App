@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {browserHistory} from 'react';
+// import {BrowserRouter} from 'react-router-dom';
+// import {redirect} from 'react-router-dom';
 import './Recipes.css';
 
 class Recipes extends Component {
@@ -49,7 +50,7 @@ class Recipes extends Component {
             reader.readAsDataURL(file);
         }
         else {
-            this.setState({src: "https://via.placeholder.com/150x150"});
+            // this.setState({src: "https://via.placeholder.com/150x150"});
             alert("No file selected");
         }
         
@@ -68,6 +69,7 @@ class Recipes extends Component {
         // Send the data
         fetch('http://localhost:5000/upload', {
             method: 'post',
+            redirect: 'follow',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -82,13 +84,10 @@ class Recipes extends Component {
         })
         .then((res) => {
             // A message to let me know that the data has been sent
-            console.log('Data sent!');            
+            console.log('Data sent!', res.url);       
+            // window.location('http://localhost:5000/');  
+            this.setState({ redirect: true });
         });
-        // setTimeout(() => {
-        //     window.location = 'http://localhost:3000/';
-        // }, 1000);
-        setTimeout(() => {browserHistory.push('home');}, 2000);
-
     }
     
     // This method runs both the showMessage and sendData method when the submit button is clicked
