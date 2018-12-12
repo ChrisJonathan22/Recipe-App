@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import {BrowserRouter} from 'react-router-dom';
-// import {redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import './Recipes.css';
 
 class Recipes extends Component {
@@ -9,6 +9,7 @@ class Recipes extends Component {
         this.state = {
             recipes: [],
             showMe: false,
+            fireRedirect: false,
             src: '',
             title: '',
             document: {
@@ -84,10 +85,10 @@ class Recipes extends Component {
         })
         .then((res) => {
             // A message to let me know that the data has been sent
-            console.log('Data sent!', res.url);       
-            // window.location('http://localhost:5000/');  
-            this.setState({ redirect: true });
+            console.log('Data sent!');       
         });
+        // setTimeout(() => {this.setState({ fireRedirect: true });}, 1000);
+        this.setState({ fireRedirect: true });
     }
     
     // This method runs both the showMessage and sendData method when the submit button is clicked
@@ -157,8 +158,13 @@ class Recipes extends Component {
 
 
     render() {
+        // This represents fireRedirect from the state
+        const { fireRedirect } = this.state;
         return (
             <div>
+                {   /*If fireRedirect is true redirect to the homepage*/ 
+                    fireRedirect && (<Redirect to='/'/>)
+                }
                 <div id = 'recipes-title'>
                     <h1>My Recipes!</h1>
                 </div>
