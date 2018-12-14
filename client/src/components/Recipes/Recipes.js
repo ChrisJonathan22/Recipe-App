@@ -66,7 +66,6 @@ class Recipes extends Component {
             duration: document.getElementById('form-duration').value,
             steps: document.getElementById('form-steps').value
         };
-
         // Send the data
         fetch('http://localhost:5000/upload', {
             method: 'post',
