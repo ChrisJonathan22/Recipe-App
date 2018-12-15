@@ -126,6 +126,8 @@
 
 /* This is the preview section */
 
+    /* Image preview */
+
 #image-preview-container {
     text-align: center;
 }
@@ -137,7 +139,13 @@
     box-shadow: 5px 10px 30px rgb(77, 74, 74);
 }
 
+    /* The End */
+
+    /* Recipe preview */
 #recipe-preview-container {
     text-align: center;
 }
+    /* The End */
+    
 /* The End */
+

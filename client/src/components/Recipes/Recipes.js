@@ -93,7 +93,8 @@ class Recipes extends Component {
     // This method runs both the showMessage and sendData method when the submit button is clicked
     showMessageAndSendData(){
         this.showMessage();
-        this.sendData();
+        setTimeout(() => {this.sendData();}, 1000);
+        
     }
     /*
         This method will fetch data belonging to the recipe title clicked on
@@ -190,7 +191,7 @@ class Recipes extends Component {
                                 <input id = 'form-image' type = 'file' placeholder = 'Upload an image' name = 'image' />
                                 <input id = 'form-duration' type = 'text' placeholder = 'Enter the duration' name = 'duration'/>
                                 <textarea id = 'form-steps' placeholder = 'Enter steps...' name = 'steps'></textarea>
-                                <input id = 'form-button' type = 'submit' value = 'Submit' onClick = {this.showMessageAndSendData} onMouseEnter = {this.getData} />
+                                <input id = 'form-button' type = 'button' value = 'Submit' onClick = {this.showMessageAndSendData} onMouseEnter = {this.getData} />
                             </form>
                             {
                                 this.state.showMe ? 
