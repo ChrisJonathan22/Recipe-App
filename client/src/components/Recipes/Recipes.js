@@ -16,7 +16,8 @@ class Recipes extends Component {
                 title: '',
                 image: '',
                 duration: '',
-                steps: ''
+                steps: '',
+                rating: ''
             }
         }
         this.showMessage = this.showMessage.bind(this);
@@ -64,8 +65,10 @@ class Recipes extends Component {
             title: document.getElementById('form-title').value,
             image: this.state.src,
             duration: document.getElementById('form-duration').value,
-            steps: document.getElementById('form-steps').value
+            steps: document.getElementById('form-steps').value,
+            rating: document.getElementById('form-rating').value
         };
+        console.log(obj.rating);
         // Send the data
         fetch('http://localhost:5000/upload', {
             method: 'post',
@@ -79,7 +82,8 @@ class Recipes extends Component {
                 title: obj.title,
                 image: obj.image,
                 duration: obj.duration,
-                steps: obj.steps
+                steps: obj.steps,
+                rating: obj.rating
             })
         })
         .then((res) => {
@@ -135,7 +139,18 @@ class Recipes extends Component {
     })
     // Now the data is in json format, update the state with the data
     .then((data) => {
-        this.setState({document: {title: data.title, image: data.image, duration: data.duration, steps: data.steps}});
+        // Take the rating and find its percentage value
+        const starPercentage = (data.rating / 5) * 100;
+        // Round up the percentage value and add the percentage symbol to the value
+        const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+
+        // Store the data received inside the state property of document including the rounded percentage rating
+        this.setState({document: {title: data.title, image: data.image, duration: data.duration, steps: data.steps, rating: starPercentageRounded}});
+        // Set the width of the empty stars to the width of the yellow stars which comes from the rounded percentage rating
+        document.getElementById('stars-inner').style.width = this.state.document.rating;
+        // The stars outer is hidden by default which is why it's being displayed here when the ratings are available
+        document.getElementById('stars-outer').style.display = 'inline-block';
+                
         console.log('Data received from the search.');
         console.log(this.state.document);
         
@@ -191,6 +206,7 @@ class Recipes extends Component {
                                 <input id = 'form-image' type = 'file' placeholder = 'Upload an image' name = 'image' />
                                 <input id = 'form-duration' type = 'text' placeholder = 'Enter the duration' name = 'duration'/>
                                 <textarea id = 'form-steps' placeholder = 'Enter steps...' name = 'steps'></textarea>
+                                <input id = 'form-rating' type = 'text' placeholder = 'Enter difficulty between 0-5' name = 'rating' />
                                 <input id = 'form-button' type = 'button' value = 'Submit' onClick = {this.showMessageAndSendData} onMouseEnter = {this.getData} />
                             </form>
                             {
@@ -212,22 +228,13 @@ class Recipes extends Component {
                         }
                             <img src = {this.state.src} />
                         </div>
-                        <fieldset class="rating">
-                            <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-                            <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-                            <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-                            <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                            <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-                            <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Not too good - 2.5 stars"></label>
-                            <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Not too good - 2 stars"></label>
-                            <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                            <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Not good - 1 star"></label>
-                            <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-                        </fieldset>
                         <div id = "recipe-preview-container">
                             <h4>{this.state.document.title}</h4>
                             <img src = {this.state.document.image} />
                             <p>{this.state.document.steps}</p>
+                            <div id="stars-outer">
+                                <div id="stars-inner"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

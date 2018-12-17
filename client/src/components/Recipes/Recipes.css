@@ -101,6 +101,14 @@
     border-radius: 5px;
 }
 
+#form-rating {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px black solid;
+    border-radius: 5px;
+    width: 60%;
+}
+
 #form-button {
     display: block;
     margin: 10px auto;
@@ -157,52 +165,36 @@
     margin-right: 10px;
     text-align: start;
 }
+
+#recipe-preview-container #stars-outer {
+    position: relative;
+    display: none;
+}
+
+#recipe-preview-container #stars-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+}
+
+#recipe-preview-container #stars-outer::before {
+    content: "\f005 \f005 \f005 \f005 \f005";
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #CCC;
+}
+
+#recipe-preview-container #stars-inner::before {
+    content: "\f005 \f005 \f005 \f005 \f005";
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #f8ce0b;
+}
+
     /* The End */
-    
+
+
 /* The End */
-
-
-
-  fieldset, label { margin: 0; padding: 0; }
-body{ margin: 20px; }
-h1 { font-size: 1.5em; margin: 10px; }
-
-/****** Style Star Rating Widget *****/
-
-.rating { 
-  border: none;
-  width: 40%;
-  margin: 0 auto;
-  float: left;
-  border: 1px red solid;
-}
-
-.rating > input { display: none; } 
-.rating > label:before { 
-  margin: 5px;
-  font-size: 1.25em;
-  font-family: FontAwesome;
-  display: inline-block;
-  content: "\f005";
-}
-
-.rating > .half:before { 
-  content: "\f089";
-  position: absolute;
-}
-
-.rating > label { 
-  color: #ddd; 
- float: right; 
-}
-
-/***** CSS Magic to Highlight Stars on Hover *****/
-
-.rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
-
-.rating > input:checked + label:hover, /* hover current star when changing rating */
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 

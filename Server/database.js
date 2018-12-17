@@ -12,7 +12,8 @@ let recipeSchema = new mongoose.Schema({
     title: String,
     image: String,
     duration: String,
-    steps: String
+    steps: String,
+    rating: Number
 });
 
 // Create a model/ collection
