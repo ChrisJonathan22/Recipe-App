@@ -1,24 +1,20 @@
 // Export all the modules needed
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const crypto = require('crypto');
-const path = require('path');
-const fs = require('fs');
 const cors = require('cors');
-const multer = require('multer');
-const GridFsStorage = require('multer-gridfs-storage');
-const Grid = require('gridfs-stream');
 const methodOverride = require('method-override');
 
 // Create an express app
 const app = express();
 
 // Middlewares
+// I've set the maximum size of data to be transferred
 app.use(bodyParser.urlencoded({
+        limit: '15mb',
         extended: true
 }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '15mb', extended: true}));
+
 app.use(methodOverride('_method'));
 app.use(cors());
 app.use((req, res, next) => { //allow cross origin requests
@@ -36,46 +32,11 @@ const { recipes } = require('./database');
 // Set the port number to 5000
 const port = 5000;
 
-const mongoURI = 'mongodb://chris:chris22@ds211774.mlab.com:11774/recipesdatabase';
-let gfs;
-
 // Handling the database errors
 connect.on('error', console.error.bind(console, 'connection error:'));
 connect.once('open', () => {
-        // Init stream
-        gfs = Grid(connect.db, mongoose.mongo, {useNewUrlParser: true});
-        gfs.collection('uploads');
         console.log('Database connection successful');     
 });
-
-// This part isn't needed anymore since I'm sending the image or images over as strings.
-// Create storage engine
-const storage = new GridFsStorage({
-        url: mongoURI,
-        file: (req, file) => {
-                return new Promise((resolve, reject) => {
-                        crypto.randomBytes(16, (err, buf) => {
-                                if(err) {
-                                        return reject(err);
-                                }
-                                const filename = buf.toString('hex') + path.extname(file.originalname);
-                                const fileInfo = {
-                                        filename: filename,
-                                        bucketName: 'uploads',
-                                        // I spent a long time trying to figure out why the files weren't
-                                        // being saved in uploads collection and the reason was because 
-                                        // instead of using the bucketName property I previously used bucketname
-                                        //  and because no error where thrown I had no idea what was wrong because
-                                        //  I was able to save files to my main collection "recipes"  
-                                };
-
-                                resolve(fileInfo);
-                        });
-                });
-        }
-});
-
-const upload = multer({ storage: storage });
 
 // Creating a route for POST requests from the form
 app.post('/upload',(req, res) => {

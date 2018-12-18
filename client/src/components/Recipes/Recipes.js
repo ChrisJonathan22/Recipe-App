@@ -230,7 +230,8 @@ class Recipes extends Component {
                         </div>
                         <div id = "recipe-preview-container">
                             <h4>{this.state.document.title}</h4>
-                            <img src = {this.state.document.image} />
+                            <img alt = {this.state.document.title} src = {this.state.document.image} />
+                            <p>{this.state.document.duration}</p>
                             <p>{this.state.document.steps}</p>
                             <div id="stars-outer">
                                 <div id="stars-inner"></div>
