@@ -19,7 +19,7 @@ class Recipes extends Component {
                 steps: '',
                 rating: ''
             }
-        }
+        };
         this.showMessage = this.showMessage.bind(this);
         this.getData = this.getData.bind(this);
         this.sendData = this.sendData.bind(this);
