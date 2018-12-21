@@ -1,0 +1,4 @@
+/* Make all a elements/ link white */
+nav a {
+    color: white;
+}
