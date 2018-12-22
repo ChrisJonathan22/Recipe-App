@@ -194,7 +194,7 @@ class Recipes extends Component {
                         <div id = 'recipes-list-container'>
                             <ul>
                                 {  
-                                    this.state.recipes.map(recipe =>  <li id = {recipe._id} onClick = {this.fetchRecipe}>&bull;{recipe.title}</li>)
+                                    this.state.recipes.map(recipe =>  <li key = {recipe._id} onClick = {this.fetchRecipe}>&bull;{recipe.title}</li>)
                                 }
                             </ul>
                         </div>
@@ -202,9 +202,9 @@ class Recipes extends Component {
                     <div id = 'recipes-right'>
                         <div id = 'recipes-form-holder'>
                             <form >
-                                <input id = 'form-title' type = 'text' placeholder = 'Enter the title' name = 'title' />
+                                <input id = 'form-title' type = 'text' placeholder = 'Enter the title' name = 'title' autoComplete = 'off' />
                                 <input id = 'form-image' type = 'file' placeholder = 'Upload an image' name = 'image' />
-                                <input id = 'form-duration' type = 'text' placeholder = 'Enter the duration' name = 'duration'/>
+                                <input id = 'form-duration' type = 'text' placeholder = 'Enter the duration' name = 'duration' autoComplete = 'off'/>
                                 <textarea id = 'form-steps' placeholder = 'Enter steps...' name = 'steps'></textarea>
                                 <input id = 'form-rating' type = 'text' placeholder = 'Enter difficulty between 0-5' name = 'rating' />
                                 <input id = 'form-button' type = 'button' value = 'Submit' onClick = {this.showMessageAndSendData} onMouseEnter = {this.getData} />
