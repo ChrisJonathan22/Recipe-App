@@ -153,7 +153,6 @@ class Recipes extends Component {
                 
         console.log('Data received from the search.');
         console.log(this.state.document);
-        
     });
 
 

@@ -1,4 +1,22 @@
-#title h1 {
+#about-title {
     color: black;
+    text-align: center;
+    padding-top: 50px;
+}
+
+#about-title h1 {
+    padding-bottom: 20px;
+}
+
+#image-holder {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+#image-holder img {
+    height: 400px;
+}
+
+#container {
     text-align: center;
 }
