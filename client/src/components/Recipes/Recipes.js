@@ -217,14 +217,6 @@ class Recipes extends Component {
                             }
                         </div>
                         <div id = 'image-preview-container'>
-                        {
-                            /* If this.state.src is empty do nothing and if it isn't display the image
-                                if (!this.state.src === null || !this.state.src === undefined) {
-
-                                }
-                            */
-
-                        }
                             <img src = {this.state.src} />
                         </div>
                         <div id = "recipe-preview-container">

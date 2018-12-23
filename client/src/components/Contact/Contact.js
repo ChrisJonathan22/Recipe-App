@@ -17,6 +17,7 @@ class Contact extends Component {
                 <div id = "bg-text">
                     <h3>I am Chris Jonathan</h3>
                     <p>And I'm a Full Stack Developer</p>
+                    <a href="https://github.com/ChrisJonathan22"><i class="fab fa-github"> ChrisJonathan22</i></a>
                 </div>
             </div>
         );
