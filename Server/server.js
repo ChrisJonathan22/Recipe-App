@@ -1,4 +1,4 @@
-// Export all the modules needed
+// Import all the modules needed
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
