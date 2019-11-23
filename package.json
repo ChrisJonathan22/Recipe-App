@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ChrisJonathan22/Recipe-App#readme",
   "dependencies": {
+    "axios": "^0.19.0",
     "body-parser": "^1.18.3",
     "concurrently": "^4.0.1",
     "cors": "^2.8.5",
@@ -29,6 +30,7 @@
     "mongoose": "^5.3.12",
     "multer": "^1.4.1",
     "multer-gridfs-storage": "^3.2.3",
+    "node-sass": "^4.13.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-router-dom": "^4.3.1"
