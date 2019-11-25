@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import {BrowserRouter} from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
-import './Recipes.css';
+import './Recipes.scss';
 
 class Recipes extends Component {
     constructor(){
