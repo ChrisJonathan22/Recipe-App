@@ -57,11 +57,16 @@
 
 #recipes-list-container  {
 
+    Link {
+        text-decoration: none;
+    }
+
     .recipe-item {
         padding: 10px;
         background-color: #fff;
         color: #EB6864;
         margin-bottom: 10px;
+        overflow: auto;
 
         &:hover {
             background-color: #EB6864;

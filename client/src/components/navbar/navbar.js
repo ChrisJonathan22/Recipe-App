@@ -27,6 +27,7 @@ const Navbar =  () => {
                     </ul>
                   </div>
               </nav>
+              <div className='nav-clear'></div>
           </div>
   );
 }

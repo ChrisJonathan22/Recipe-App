@@ -125,38 +125,38 @@ class Recipes extends Component {
         */
         
         // Send data, specifically the title
-        fetch('http://localhost:5000/api/recipes/single', {
-        method: 'post',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        // Turn it to json
-        body: JSON.stringify({
-            title: titleText
-        })
-    })
-    // Receive the document found if the search matches and turn it to json
-    .then((res) => {
-        return res.json();   
-    })
-    // Now the data is in json format, update the state with the data
-    .then((data) => {
-        // Take the rating and find its percentage value
-        const starPercentage = (data.rating / 5) * 100;
-        // Round up the percentage value and add the percentage symbol to the value
-        const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+    //     fetch('http://localhost:5000/api/recipes/single', {
+    //     method: 'post',
+    //     headers: {
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json'
+    //     },
+    //     // Turn it to json
+    //     body: JSON.stringify({
+    //         title: titleText
+    //     })
+    // })
+    // // Receive the document found if the search matches and turn it to json
+    // .then((res) => {
+    //     return res.json();   
+    // })
+    // // Now the data is in json format, update the state with the data
+    // .then((data) => {
+    //     // Take the rating and find its percentage value
+    //     const starPercentage = (data.rating / 5) * 100;
+    //     // Round up the percentage value and add the percentage symbol to the value
+    //     const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
 
-        // Store the data received inside the state property of document including the rounded percentage rating
-        this.setState({document: {title: data.title, image: data.image, duration: data.duration, steps: data.steps, rating: starPercentageRounded}});
-        // Set the width of the empty stars to the width of the yellow stars which comes from the rounded percentage rating
-        document.getElementById('stars-inner').style.width = this.state.document.rating;
-        // The stars outer is hidden by default which is why it's being displayed here when the ratings are available
-        document.getElementById('stars-outer').style.display = 'inline-block';
+    //     // Store the data received inside the state property of document including the rounded percentage rating
+    //     this.setState({document: {title: data.title, image: data.image, duration: data.duration, steps: data.steps, rating: starPercentageRounded}});
+    //     // Set the width of the empty stars to the width of the yellow stars which comes from the rounded percentage rating
+    //     document.getElementById('stars-inner').style.width = this.state.document.rating;
+    //     // The stars outer is hidden by default which is why it's being displayed here when the ratings are available
+    //     document.getElementById('stars-outer').style.display = 'inline-block';
                 
-        console.log('Data received from the search.');
-        console.log(this.state.document);
-    });
+    //     console.log('Data received from the search.');
+    //     console.log(this.state.document);
+    // });
 
 
         }
@@ -199,7 +199,7 @@ class Recipes extends Component {
                                 :
                                 <ul>
                                     {  
-                                        recipes.map(recipe =>  <Link to={{ pathname: `single-recipe/${recipe._id}`, recipeName: `${recipe.title}` }}><li className='recipe-item' key = {recipe._id} value={recipe.title} onClick = {this.fetchRecipe}>{recipe.title}</li></Link>)
+                                        recipes.map(recipe =>  <Link to={{ pathname: `/${recipe._id}`, singleRecipe: `${JSON.stringify(recipe)}` }} style={{ textDecoration: 'none' }}><li className='recipe-item' key = {recipe._id} value={recipe.title} onClick = {this.fetchRecipe}>{recipe.title}</li></Link>)
                                     }
                                 </ul>
                             }
