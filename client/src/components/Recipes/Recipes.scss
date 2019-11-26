@@ -55,8 +55,21 @@
     text-decoration-line: underline;
 }
 
-#recipes-list-container ul li {
-    padding-left: 10px;
+#recipes-list-container  {
+
+    .recipe-item {
+        padding: 10px;
+        background-color: #fff;
+        color: #EB6864;
+        margin-bottom: 10px;
+
+        &:hover {
+            background-color: #EB6864;
+            color: #fff;
+            transition-duration: .5s;
+        }
+    }
+    
 }
 
 /* The End */

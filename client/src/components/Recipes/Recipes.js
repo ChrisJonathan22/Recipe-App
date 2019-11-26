@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import Spinner from '../Spinner/Spinner';
 // import {BrowserRouter} from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
+import Axios from 'axios';
+import { Redirect, Link } from 'react-router-dom';
 import './Recipes.scss';
 
 class Recipes extends Component {
@@ -10,6 +12,7 @@ class Recipes extends Component {
             recipes: [],
             showMe: false,
             fireRedirect: false,
+            loading: true,
             src: '',
             title: '',
             document: {
@@ -25,6 +28,7 @@ class Recipes extends Component {
         this.sendData = this.sendData.bind(this);
         this.showMessageAndSendData = this.showMessageAndSendData.bind(this);
         this.fetchRecipe = this.fetchRecipe.bind(this);
+        this.fetchAllRecipes = this.fetchAllRecipes.bind(this);
     }
 
     // This method display a success message when the submit button has been clicked 
@@ -113,7 +117,6 @@ class Recipes extends Component {
         */    
         let regex = /[^a-zA-Z0-9]+/;
         let titleText = e.target.innerText.replace(regex, '');
-        
         /* 
             setState works Asynchronously and if you have multiple setStates they will not be
             updated one by one instead they'll be updated as a group.
@@ -158,22 +161,22 @@ class Recipes extends Component {
 
         }
 
+    async fetchAllRecipes(endpoint) {
+        let result = await Axios.get(endpoint);
+        console.log('Axios req', result);
+        this.setState( { recipes: result.data.recipes, loading: false }, () => console.log('Recipes fetched...', result.data.recipes[1]) )
+    } 
+
     componentDidMount() {
-        // This is requesting data from the api
-        fetch('http://localhost:5000/api/recipes')
-        // I'm requesting data, turning the response which will be every found document and then I'm saving it to the state
-        .then(res => res.json())
-        .then(data => this.setState({ recipes: data.recipes }, () => console.log('Recipes fetched...', data.recipes[1])
-        // It took me a while to figure out why I was having an issue. I couldn't display the fetched data because the response was an object with an array of objects but I expected it to be an array.
-        // So I changed it from recipes: data to recipes: data.recipes
-        ));
+        // I'm requesting data, turning the response which will be every found recipe and then I'm saving it to the state
+        this.fetchAllRecipes('http://localhost:5000/api/recipes');
     }
 
 
 
     render() {
         // This represents fireRedirect from the state
-        const { fireRedirect } = this.state;
+        const { fireRedirect, recipes, loading } = this.state;
         return (
             <div>
                 {   /*If fireRedirect is true redirect to the homepage*/ 
@@ -191,11 +194,15 @@ class Recipes extends Component {
                             <h4>Recipes</h4>
                         </div>
                         <div id = 'recipes-list-container'>
-                            <ul>
-                                {  
-                                    this.state.recipes.map(recipe =>  <li key = {recipe._id} onClick = {this.fetchRecipe}>&bull;{recipe.title}</li>)
-                                }
-                            </ul>
+                            { loading ? 
+                                <Spinner />   
+                                :
+                                <ul>
+                                    {  
+                                        recipes.map(recipe =>  <Link to={{ pathname: `single-recipe/${recipe._id}`, recipeName: `${recipe.title}` }}><li className='recipe-item' key = {recipe._id} value={recipe.title} onClick = {this.fetchRecipe}>{recipe.title}</li></Link>)
+                                    }
+                                </ul>
+                            }
                         </div>
                     </div>
                     <div id = 'recipes-right'>
@@ -217,7 +224,7 @@ class Recipes extends Component {
                             }
                         </div>
                         <div id = 'image-preview-container'>
-                            <img src = {this.state.src} />
+                            <img alt={this.state.title} src = {this.state.src} />
                         </div>
                         <div id = "recipe-preview-container">
                             <h4>{this.state.document.title}</h4>
