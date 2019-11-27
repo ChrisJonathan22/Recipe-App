@@ -1,0 +1,82 @@
+/* This is the right section */
+
+#recipes-right {
+    background-color: white;
+    border: 1px #EB6864 dashed;
+    width: 60%;
+    height: auto;
+    float: right;
+    overflow: hidden;
+
+    #recipes-form-holder {
+        text-align: center;
+
+        #form-title {
+            margin-top: 20px;
+            border: 1px black solid;
+            border-radius: 5px;
+            width: 60%;
+            padding: 5px;
+        }
+        
+        #form-image {
+            padding: 10px 0 20px 0;
+            width: 60%;
+        }
+        
+        #form-duration {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border: 1px black solid;
+            border-radius: 5px;
+            width: 60%;
+            padding: 5px;
+        }
+        
+        #form-steps {
+            width: 60%;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        
+        #form-rating {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border: 1px black solid;
+            border-radius: 5px;
+            width: 60%;
+            padding: 5px;
+        }
+        
+        #form-button {
+            display: block;
+            margin: 10px auto;
+            padding: 7px;
+            border-radius: 5px;
+            color: #fff;
+            background-color: #EB6864;
+            border: 0;
+            cursor: pointer;
+        }
+    }
+    
+    /* This is the message section */
+    
+    #message {
+        margin-top: 50px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: lightcoral;
+        width: 400px;
+        height: 200px;
+        padding-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    
+    /* The End */
+}
+
+/* The End */

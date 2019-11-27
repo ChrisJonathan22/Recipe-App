@@ -1,4 +1,4 @@
-/* Recipes page title and paragrah styles */
+/* Recipes page title and paragraph styles */
 
 #recipes-title {
     text-align: center;
@@ -8,70 +8,59 @@
 #recipes-para {
     text-align: center;
     padding-bottom: 100px;
-}
 
-#recipes-para p {
-    font-size: 30px;
-    font-weight: 100;
-    color: red;
+    p {
+        font-size: 30px;
+        font-weight: 100;
+        color: #EB6864;
+    }
 }
 
 /* The End */
-
 
 /* This container is where everything else will live */
 
 #recipes-container {
     width: 80%;
     margin: 0 auto;
-}
 
-/* The End */
-
-/* This is the left section */
-
-#recipes-left {
-    background-color: whitesmoke;
-    border: 1px 1px 1px;
-    border-right: 0px;
-    border-color: black;
-    border-style: solid;
-    width: 30%;
-    height: auto;
-    float: left;
-    overflow: hidden;
-}
-
-#recipes-list-container {
-    text-align: left;
-}
-
-#recipes-list-title {
-    text-align: center;
-    padding-bottom: 10px;
-}
-
-#recipes-list-title h4 {
-    text-decoration-line: underline;
-}
-
-#recipes-list-container  {
-
-    Link {
-        text-decoration: none;
-    }
-
-    .recipe-item {
+    #recipes-left {
+        background-color: whitesmoke;
+        border: 2px #000 solid;
         padding: 10px;
-        background-color: #fff;
-        color: #EB6864;
-        margin-bottom: 10px;
+        width: 30%;
+        height: auto;
+        float: left;
         overflow: auto;
 
-        &:hover {
-            background-color: #EB6864;
-            color: #fff;
-            transition-duration: .5s;
+        #recipes-list-title {
+            text-align: center;
+            padding-bottom: 10px;
+
+            h4 {
+                text-decoration-line: underline;
+            }
+        }
+        
+        #recipes-list-container  {
+        
+            Link {
+                text-decoration: none;
+            }
+        
+            .recipe-item {
+                padding: 10px;
+                background-color: #fff;
+                color: #EB6864;
+                margin-bottom: 10px;
+                overflow: auto;
+        
+                &:hover {
+                    background-color: #EB6864;
+                    color: #fff;
+                    transition-duration: .5s;
+                }
+            }
         }
     }
     
@@ -79,142 +68,3 @@
 
 /* The End */
 
-/* This is the right section */
-
-#recipes-right {
-    background-color: white;
-    border: 1px red dashed;
-    width: 60%;
-    height: auto;
-    float: right;
-    overflow: hidden;
-}
-
-
-#recipes-form-holder {
-    text-align: center;
-}
-
-#form-title {
-    margin-top: 20px;
-    border: 1px black solid;
-    border-radius: 5px;
-    width: 60%;
-}
-
-#form-image {
-    padding: 10px 0 20px 0;
-    width: 60%;
-}
-
-#form-duration {
-    margin-top: 10px;
-    margin-bottom: 20px;
-    border: 1px black solid;
-    border-radius: 5px;
-    width: 60%;
-}
-
-#form-steps {
-    width: 60%;
-    border-radius: 5px;
-}
-
-#form-rating {
-    margin-top: 10px;
-    margin-bottom: 20px;
-    border: 1px black solid;
-    border-radius: 5px;
-    width: 60%;
-}
-
-#form-button {
-    display: block;
-    margin: 10px auto;
-    padding: 3px;
-}
-
-/* The End */
-
-/* This is the message section */
-
-#message {
-    margin-top: 50px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: lightcoral;
-    width: 400px;
-    height: 200px;
-    padding-top: 20px;
-}
-
-
-/* The End */
-
-
-/* This is the preview section */
-
-    /* Image preview */
-
-#image-preview-container {
-    text-align: center;
-}
-
-#image-preview-container img, #recipe-preview-container img {
-    height: 150px;
-    /* border: 1px solid; */
-    border-radius: 50%;
-    box-shadow: 5px 10px 30px rgb(77, 74, 74);
-}
-
-    /* The End */
-
-    /* Recipe preview */
-#recipe-preview-container {
-    text-align: center;
-}
-
-#recipe-preview-container img {
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
-#recipe-preview-container p {
-    margin-bottom: 30px;
-    margin-left: 10px;
-    margin-right: 10px;
-    text-align: center;
-}
-
-#recipe-preview-container #stars-outer {
-    position: relative;
-    display: none;
-}
-
-#recipe-preview-container #stars-inner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 0;
-}
-
-#recipe-preview-container #stars-outer::before {
-    content: "\f005 \f005 \f005 \f005 \f005";
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    color: #CCC;
-}
-
-#recipe-preview-container #stars-inner::before {
-    content: "\f005 \f005 \f005 \f005 \f005";
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    color: #f8ce0b;
-}
-
-    /* The End */
-
-
-/* The End */
