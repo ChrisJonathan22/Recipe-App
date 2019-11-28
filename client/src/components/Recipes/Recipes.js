@@ -30,7 +30,9 @@ class Recipes extends Component {
     }
 
     componentDidMount() {
-        this.fetchAllRecipes('http://localhost:5000/api/recipes');
+        // this.fetchAllRecipes('http://localhost:5000/api/recipes');
+        // Live server
+        this.fetchAllRecipes('https://react-recipe-app-19.herokuapp.com/api/recipes');
     }
 
 

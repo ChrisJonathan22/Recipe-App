@@ -83,7 +83,8 @@ export default class RecipeForm extends Component {
         document.getElementById('form-rating').value = '';
         document.getElementById('form-image').value = '';
         // Send the data
-        fetch('http://localhost:5000/upload', {
+        // Live server
+        fetch('https://react-recipe-app-19.herokuapp.com/upload', {
             method: 'post',
             redirect: 'follow',
             headers: {
