@@ -6,14 +6,27 @@
 
 #contact-image-holder {
     background-image: url('../../../src/images/contact.jpg');
-    filter: blur(4px);
-    -webkit-filter: blur(4px);
     height: 600px;
     width: 600px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0 auto;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: center;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
 
 #bg-text {
@@ -22,10 +35,6 @@
     color: white;
     font-weight: bold;
     border: 3px solid #f1f1f1;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     z-index: 2;
     width: 550px;
     padding: 20px;

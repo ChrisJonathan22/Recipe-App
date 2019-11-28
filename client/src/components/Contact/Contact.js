@@ -8,11 +8,11 @@ const Contact = () => {
                 <h1>Contact</h1>
             </div>
             <div id ="contact-image-holder">
-            </div>
             <div id = "bg-text">
-                <h3>I am Chris Jonathan</h3>
-                <p>And I'm a Full Stack Developer</p>
+                <p>My name is <h3>Chris Jonathan</h3></p>
+                <p>and I'm a <h3>Web Developer</h3></p>
                 <a href="https://github.com/ChrisJonathan22"><i class="fab fa-github"> ChrisJonathan22</i></a>
+            </div>
             </div>
         </div>
     );

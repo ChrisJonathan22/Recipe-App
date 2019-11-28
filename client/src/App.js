@@ -17,9 +17,9 @@ const App = () =>  {
         <Switch>
           <Route path = '/' exact component = { Home } />
           <Route path = '/about' component = { About } />
+          <Route path = '/contact' component = { Contact } />
           <Route path = '/recipes' exact component = { Recipes } />
           <Route path = '/:recipeId' exact component = { Recipe } />
-          <Route path = '/contact' component = { Contact } />
           <Route component = { NotFound } />
         </Switch>
       </React.Fragment>
