@@ -73,6 +73,8 @@ export default class RecipeForm extends Component {
             rating: document.getElementById('form-rating').value
         };
 
+        this.props.getNewRecipe(obj);
+
         // Reset input fields and the image src within the state
         document.getElementById('form-title').value = '';
         this.setState({ src: '' });

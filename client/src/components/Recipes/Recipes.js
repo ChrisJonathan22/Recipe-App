@@ -14,12 +14,20 @@ class Recipes extends Component {
             loading: true,
         };
         this.fetchAllRecipes = this.fetchAllRecipes.bind(this);
+        this.getNewRecipe = this.getNewRecipe.bind(this);
     }
 
     async fetchAllRecipes(endpoint) {
         let result = await Axios.get(endpoint);
         this.setState( { recipes: result.data.recipes, loading: false }, () => console.log('Recipes fetched...', result.data.recipes[1]) )
     } 
+
+    // This method will be passed on to the RecipeForm component
+    // From within the RecipeForm component each newly added recipe object will be passed to the method
+    // The new recipe will be received and added to the array of recipes and displayed
+    getNewRecipe (recipe) {
+        this.setState({ recipes: [...this.state.recipes, recipe] });
+    }
 
     componentDidMount() {
         this.fetchAllRecipes('http://localhost:5000/api/recipes');
@@ -55,7 +63,7 @@ class Recipes extends Component {
                             }
                         </div>
                     </div>
-                    <RecipeForm />
+                    <RecipeForm getNewRecipe={this.getNewRecipe} />
                 </div>
             </div>
         );
