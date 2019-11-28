@@ -23,6 +23,12 @@ export default class RecipeForm extends Component {
         this.setState({
             showMe: true
         });
+        setTimeout(() => {
+            this.setState({
+                showMe: false
+            });
+        }, 1500);
+        
     }
 
     // This method runs both the showMessage and sendData method when the submit button is clicked
@@ -57,8 +63,7 @@ export default class RecipeForm extends Component {
     }
 
     // This method does a Post request with the data entered
-    sendData() {
-        this.getData();
+    async sendData() {
         // This object contains all the data entered including the image as base64
         let obj = {
             title: document.getElementById('form-title').value,
@@ -67,7 +72,14 @@ export default class RecipeForm extends Component {
             steps: document.getElementById('form-steps').value,
             rating: document.getElementById('form-rating').value
         };
-        console.log(obj.rating);
+
+        // Reset input fields and the image src within the state
+        document.getElementById('form-title').value = '';
+        this.setState({ src: '' });
+        document.getElementById('form-duration').value = '';
+        document.getElementById('form-steps').value = '';
+        document.getElementById('form-rating').value = '';
+        document.getElementById('form-image').value = '';
         // Send the data
         fetch('http://localhost:5000/upload', {
             method: 'post',
@@ -89,7 +101,7 @@ export default class RecipeForm extends Component {
             // A message to let me know that the data has been sent
             console.log('Data sent!');       
             // Set redirect to true
-            this.setState({ fireRedirect: true });
+            // this.setState({ fireRedirect: true });
         });
     }
 
@@ -98,7 +110,7 @@ export default class RecipeForm extends Component {
         return (
             <div id = 'recipes-right'>
                 {   /*If fireRedirect is true redirect to the homepage*/ 
-                    fireRedirect && (<Redirect to='/'/>)
+                    // fireRedirect && (<Redirect to='/'/>)
                 }
                 <div id = 'recipes-form-holder'>
                     <form >
@@ -107,7 +119,7 @@ export default class RecipeForm extends Component {
                         <input id = 'form-duration' type = 'text' placeholder = 'Enter the duration' name = 'duration' autoComplete = 'off'/>
                         <textarea id = 'form-steps' placeholder = 'Enter steps...' name = 'steps'></textarea>
                         <input id = 'form-rating' type = 'text' placeholder = 'Enter the difficulty between 0-5' name = 'rating' />
-                        <input id = 'form-button' type = 'button' value = 'Submit' onClick = {this.showMessageAndSendData} />
+                        <input id = 'form-button' type = 'button' value = 'Submit' onClick = {this.showMessageAndSendData} onMouseEnter={this.getData} />
                     </form>
                     {
                         this.state.showMe ? 
