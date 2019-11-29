@@ -3,16 +3,28 @@
 #recipes-title {
     text-align: center;
     padding-top: 50px;
+
+    @media screen and (max-width: '480px') {
+        font-size: 1.7em;
+    }
 }
 
 #recipes-para {
     text-align: center;
     padding-bottom: 100px;
 
+    @media screen and (max-width: '480px') {
+        padding-bottom: 10px;
+    }
+
     p {
         font-size: 30px;
         font-weight: 100;
         color: #EB6864;
+
+        @media screen and (max-width: '480px') {
+            font-size: 1.4em;
+        }
     }
 }
 
@@ -24,6 +36,10 @@
     width: 80%;
     margin: 0 auto;
 
+    @media screen and (max-width: '480px') {
+        width: 90%;
+    }
+
     #recipes-left {
         background-color: whitesmoke;
         border: 2px #000 solid;
@@ -32,6 +48,10 @@
         height: auto;
         float: left;
         overflow: auto;
+
+        @media screen and (max-width: '480px') {
+            width: 100%;
+        }
 
         #recipes-list-title {
             text-align: center;

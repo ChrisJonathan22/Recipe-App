@@ -2,13 +2,16 @@
  #recipe-preview-container {
     text-align: center;
     padding-bottom: 25px;
-    margin-top: 100px !important;
     border: 1px lightgray solid;
     border-radius: 20px;
     width: 500px;
-    margin: 0 auto;
+    margin: 50px auto;
     position: relative;
     background-color: lightgray;
+
+    @media screen and (max-width: '480px') {
+        width: 90% !important;
+    }
 
     .recipe-info {
         color: #EB6864;
@@ -37,6 +40,10 @@
         justify-content: center;
         align-items: center;
         border-bottom: 3px white solid;
+
+        @media screen and (max-width: '480px') {
+            font-size: 1.7em;
+        }
     }
 
     .clear-title {
@@ -48,6 +55,10 @@
         margin-bottom: 30px;
         height: 230px;
         width: 210px;
+
+        @media screen and (max-width: '480px') {
+            width: 50%;
+        }
     }
 
     p {
