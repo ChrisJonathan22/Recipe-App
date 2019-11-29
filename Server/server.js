@@ -46,6 +46,7 @@ app.post('/upload',(req, res) => {
         if(err) console.log(err);
         else {
                 console.log('New recipe successfully added...');
+                res.redirect('http://localhost:3000/');
         }
         
         // setTimeout(() => {res.redirect('http://localhost:3000/')}, 500);           

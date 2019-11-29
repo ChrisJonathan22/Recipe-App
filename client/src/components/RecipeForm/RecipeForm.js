@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './RecipeForm.scss';
+import { Redirect } from 'react-router-dom';
+import Axios from 'axios';
 
 export default class RecipeForm extends Component {
     constructor(props) {
@@ -7,7 +9,8 @@ export default class RecipeForm extends Component {
         this.state = {
             showMe: false,
             src: '',
-            title: ''
+            title: '',
+            fireRedirect: false,
         }
         this.showMessage = this.showMessage.bind(this);
         this.showMessageAndSendData = this.showMessageAndSendData.bind(this);
@@ -100,12 +103,18 @@ export default class RecipeForm extends Component {
         .then((res) => {
             // A message to let me know that the data has been sent
             console.log('Data sent!');       
+            // Set redirect to true
+            // this.setState({ fireRedirect: true });
         });
     }
 
     render() {
+        const { fireRedirect } = this.state;
         return (
             <div id = 'recipes-right'>
+                {   /*If fireRedirect is true redirect to the homepage*/ 
+                    // fireRedirect && (<Redirect to='/'/>)
+                }
                 <div id = 'recipes-form-holder'>
                     <form >
                         <input id = 'form-title' type = 'text' placeholder = 'Enter the title' name = 'title' autoComplete = 'off' />

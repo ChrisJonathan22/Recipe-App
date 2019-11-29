@@ -11,7 +11,7 @@ import NotFound from './components/NotFound/NotFound';
 
 const App = () =>  {
   return (
-    <BrowserRouter basename='/react-recipe-app/'>
+    <BrowserRouter>
       <React.Fragment>
         <Navbar />
         <Switch>
