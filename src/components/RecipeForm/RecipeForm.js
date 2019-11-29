@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './RecipeForm.scss';
-import Axios from 'axios';
 
 export default class RecipeForm extends Component {
     constructor(props) {
@@ -82,12 +81,11 @@ export default class RecipeForm extends Component {
         document.getElementById('form-image').value = '';
         // Send the data
         // Live server
-        Axios.post('https://react-recipe-app-19.herokuapp.com/upload', {
+        fetch('https://react-recipe-app-19.herokuapp.com/upload', {
             method: 'post',
             redirect: 'follow',
             headers: {
                 'Accept': 'application/json',
-                'Access-Control-Allow-Origin':'*',
                 'Content-Type': 'application/json'
             },
             // Turn the object to json
@@ -101,7 +99,7 @@ export default class RecipeForm extends Component {
         })
         .then((res) => {
             // A message to let me know that the data has been sent
-            console.log('Data sent!');       
+            console.log('Data sent!');
         });
     }
 
