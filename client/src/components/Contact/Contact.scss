@@ -2,12 +2,16 @@
     text-align: center;
     padding-top: 50px;
     padding-bottom: 50px;
+
+    @media screen and (max-width: '480px') {
+        font-size: 1.7em;
+    }
 }
 
 #contact-image-holder {
     background-image: url('../../../src/images/contact.jpg');
-    height: 600px;
-    width: 600px;
+    height: 50vh;
+    width: 80%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -27,6 +31,12 @@
     -moz-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+
+
+    @media screen and (min-width: '1080px') {
+        height: 600px;
+        max-width: 1440px;
+    }
 }
 
 #bg-text {

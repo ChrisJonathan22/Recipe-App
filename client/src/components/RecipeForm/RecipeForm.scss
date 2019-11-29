@@ -8,6 +8,12 @@
     float: right;
     overflow: hidden;
 
+    @media screen and (max-width: '480px') {
+        width: 100%;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
     #recipes-form-holder {
         text-align: center;
 
@@ -17,11 +23,19 @@
             border-radius: 5px;
             width: 60%;
             padding: 5px;
+
+            @media screen and (max-width: '480px') {
+                width: 90%;
+            }
         }
         
         #form-image {
             padding: 10px 0 20px 0;
             width: 60%;
+
+            @media screen and (max-width: '480px') {
+                width: 90%;
+            }
         }
         
         #form-duration {
@@ -31,12 +45,20 @@
             border-radius: 5px;
             width: 60%;
             padding: 5px;
+
+            @media screen and (max-width: '480px') {
+                width: 90%;
+            }
         }
         
         #form-steps {
             width: 60%;
             border-radius: 5px;
             padding: 5px;
+
+            @media screen and (max-width: '480px') {
+                width: 90%;
+            }
         }
         
         #form-rating {
@@ -46,6 +68,10 @@
             border-radius: 5px;
             width: 60%;
             padding: 5px;
+
+            @media screen and (max-width: '480px') {
+                width: 90%;
+            }
         }
         
         #form-button {

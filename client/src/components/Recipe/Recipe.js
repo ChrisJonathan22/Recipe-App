@@ -11,7 +11,6 @@ const Recipe = (props) => {
     const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
     return (
         <div>
-            {/* <h1>{ recipe.title }</h1> */}
             <div id = "recipe-preview-container">
                 <h2 className='recipe-title'>{recipe.title}</h2>
                 <div className='clear-title'></div>
