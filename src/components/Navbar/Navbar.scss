@@ -1,0 +1,19 @@
+/* Make all a elements/ link white */
+nav {
+    position: fixed !important;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+
+    a {
+        color: #fff !important;
+
+        &:hover {
+            color: #000 !important;
+        }
+    }
+}
+
+.nav-clear {
+    height: 59px;
+}
