@@ -11,15 +11,15 @@ import NotFound from './components/NotFound/NotFound';
 
 const App = () =>  {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/react-recipe-app/'>
       <React.Fragment>
         <Navbar />
         <Switch>
-          <Route path = '/' exact component = { Home } />
+          <Route exact path = '/' component = { Home } />
           <Route path = '/about' component = { About } />
           <Route path = '/contact' component = { Contact } />
-          <Route path = '/recipes' exact component = { Recipes } />
-          <Route path = '/:recipeId' exact component = { Recipe } />
+          <Route exact path = '/recipes' component = { Recipes } />
+          <Route exact path = '/:recipeId' component = { Recipe } />
           <Route component = { NotFound } />
         </Switch>
       </React.Fragment>

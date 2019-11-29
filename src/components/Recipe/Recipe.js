@@ -2,7 +2,7 @@ import React from 'react';
 import './Recipe.scss';
 
 const Recipe = (props) => {
-    let recipe = JSON.parse(props.location.singleRecipe);
+    let recipe = props.location.singleRecipe ? JSON.parse(props.location.singleRecipe) : {title: 'text holder', image: 'https://via.placeholder.com/150', duration: '5h', steps: 'text holder', rating: 5};
     console.log('Single recipe', props.location.singleRecipe);
     console.log(props);
     // Take the recipe rating and find its percentage value.
@@ -11,7 +11,6 @@ const Recipe = (props) => {
     const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
     return (
         <div>
-            {/* <h1>{ recipe.title }</h1> */}
             <div id = "recipe-preview-container">
                 <h2 className='recipe-title'>{recipe.title}</h2>
                 <div className='clear-title'></div>
