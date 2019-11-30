@@ -9,9 +9,9 @@ const Contact = () => {
             </div>
             <div id ="contact-image-holder">
             <div id = "bg-text">
-                <p>My name is <h3>Chris Jonathan</h3></p>
-                <p>and I'm a <h3>Web Developer</h3></p>
-                <a href="https://github.com/ChrisJonathan22"><i class="fab fa-github"> ChrisJonathan22</i></a>
+                <p>My name is <span className='highlight'>Chris Jonathan</span></p>
+                <p>and I'm a <span className='highlight'>Web Developer</span></p>
+                <a href="https://github.com/ChrisJonathan22"><i className="fab fa-github"> ChrisJonathan22</i></a>
             </div>
             </div>
         </div>

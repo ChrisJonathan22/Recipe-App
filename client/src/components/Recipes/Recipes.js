@@ -29,6 +29,7 @@ class Recipes extends Component {
     }
 
     componentDidMount() {
+        // Local server
         // this.fetchAllRecipes('http://localhost:5000/api/recipes');
         // Live server
         this.fetchAllRecipes('https://react-recipe-app-19.herokuapp.com/api/recipes');
@@ -37,7 +38,6 @@ class Recipes extends Component {
 
 
     render() {
-        // This represents fireRedirect from the state
         const { recipes, loading } = this.state;
         return (
             <div>

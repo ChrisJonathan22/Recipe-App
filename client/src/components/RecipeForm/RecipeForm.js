@@ -104,11 +104,9 @@ export default class RecipeForm extends Component {
     }
 
     render() {
+        const { showMe } = this.state;
         return (
             <div id = 'recipes-right'>
-                {   /*If fireRedirect is true redirect to the homepage*/ 
-                    // fireRedirect && (<Redirect to='/'/>)
-                }
                 <div id = 'recipes-form-holder'>
                     <form >
                         <input id = 'form-title' type = 'text' placeholder = 'Enter the title' name = 'title' autoComplete = 'off' />
@@ -119,7 +117,7 @@ export default class RecipeForm extends Component {
                         <input id = 'form-button' type = 'button' value = 'Submit' onClick = {this.showMessageAndSendData} onMouseEnter={this.getData} />
                     </form>
                     {
-                        this.state.showMe ? 
+                        showMe ? 
                             <div id = 'message'>
                                 <h3>Recipe successfully added!</h3>
                             </div> 
