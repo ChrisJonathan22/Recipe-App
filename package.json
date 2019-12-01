@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node Server/server.js",
     "Server": "nodemon Server/server.js",
-    "Client": "cd client && npm start"
+    "Client": "cd client && npm start",
+    "test": "react-scripts test"
   },
   "repository": {
     "type": "git",
