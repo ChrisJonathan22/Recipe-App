@@ -6,7 +6,7 @@ const Navbar =  () => {
   return (
           <div>
               <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-                  <Link className="navbar-brand" data-toggle="collapse" data-target=".navbar-collapse.show" exact to = '/'>Recipe App</Link>
+                  <p className='logo' data-toggle="collapse" data-target=".navbar-collapse.show"><Link className="navbar-brand" exact to = '/'>Recipe App</Link></p>
                   <button className="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                   </button>
