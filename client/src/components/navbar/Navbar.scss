@@ -4,11 +4,16 @@ nav {
     width: 100%;
     z-index: 1;
 
-    a {
-        color: #fff !important;
-
-        &:hover {
-            color: #000 !important;
+    .nav-item {
+        display: block !important;
+        border: 0;
+        padding: 0;
+        a {
+            color: #fff !important;
+    
+            &:hover {
+                color: #000 !important;
+            }
         }
     }
 }

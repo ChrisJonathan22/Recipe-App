@@ -7,7 +7,8 @@ export default class RecipeForm extends Component {
         this.state = {
             showMe: false,
             src: '',
-            title: ''
+            title: '',
+            postData: false
         }
         this.showMessage = this.showMessage.bind(this);
         this.showMessageAndSendData = this.showMessageAndSendData.bind(this);
@@ -32,7 +33,6 @@ export default class RecipeForm extends Component {
     showMessageAndSendData(){
         this.showMessage();
         setTimeout(() => {this.sendData();}, 1000);
-        
     }
 
     /*
@@ -52,55 +52,73 @@ export default class RecipeForm extends Component {
             })(file);
             reader.readAsDataURL(file);
             console.log(this.state.src);
+            this.setState({ postData: true });
         }
         else {
-            // this.setState({src: "https://via.placeholder.com/150x150"});
-            alert("No file selected");
+            let { postData } = this.state;
+            if (postData) return;
+            else {
+                alert("No file selected. Please upload an image or a placeholder will be used instead.");
+                let question = prompt('Would you like to upload an image? if so then enter YES else enter NO.');
+
+                if (question.toLowerCase() === 'yes') {
+                    return;
+                } else {
+                    this.setState({src: "https://via.placeholder.com/150x150"});
+                    this.setState({ postData: true });
+                }
+            }
         }
     }
 
     // This method does a Post request with the data entered
     async sendData() {
-        // This object contains all the data entered including the image as base64
-        let obj = {
-            title: document.getElementById('form-title').value,
-            image: this.state.src,
-            duration: document.getElementById('form-duration').value,
-            steps: document.getElementById('form-steps').value,
-            rating: document.getElementById('form-rating').value
-        };
+        let { postData } = this.state;
 
-        this.props.getNewRecipe(obj);
+        if (postData) {
+            // This object contains all the data entered including the image as base64
+            let obj = {
+                title: document.getElementById('form-title').value,
+                image: this.state.src,
+                duration: document.getElementById('form-duration').value,
+                steps: document.getElementById('form-steps').value,
+                rating: document.getElementById('form-rating').value
+            };
 
-        // Reset input fields and the image src within the state
-        document.getElementById('form-title').value = '';
-        this.setState({ src: '' });
-        document.getElementById('form-duration').value = '';
-        document.getElementById('form-steps').value = '';
-        document.getElementById('form-rating').value = '';
-        document.getElementById('form-image').value = '';
-        // Send the data
-        // Live server
-        fetch('https://react-recipe-app-19.herokuapp.com/upload', {
-            method: 'post',
-            redirect: 'follow',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            // Turn the object to json
-            body: JSON.stringify({
-                title: obj.title,
-                image: obj.image,
-                duration: obj.duration,
-                steps: obj.steps,
-                rating: obj.rating
+            this.props.getNewRecipe(obj);
+
+            // Reset input fields and the image src within the state
+            document.getElementById('form-title').value = '';
+            this.setState({ src: '' });
+            document.getElementById('form-duration').value = '';
+            document.getElementById('form-steps').value = '';
+            document.getElementById('form-rating').value = '';
+            document.getElementById('form-image').value = '';
+
+            
+            // Send the data
+            // Live server
+            fetch('https://react-recipe-app-19.herokuapp.com/upload', {
+                method: 'post',
+                redirect: 'follow',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                // Turn the object to json
+                body: JSON.stringify({
+                    title: obj.title,
+                    image: obj.image,
+                    duration: obj.duration,
+                    steps: obj.steps,
+                    rating: obj.rating
+                })
             })
-        })
-        .then((res) => {
-            // A message to let me know that the data has been sent
-            console.log('Data sent!');       
-        });
+            .then((res) => {
+                // A message to let me know that the data has been sent
+                console.log('Data sent!');       
+            });
+        }
     }
 
     render() {
