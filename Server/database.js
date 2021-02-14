@@ -1,8 +1,9 @@
 // adding mongoose to this file
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 // Initiating a connection to the database
-mongoose.connect('mongodb://chris:chris22@ds211774.mlab.com:11774/recipesdatabase', { useNewUrlParser: true }); 
+mongoose.connect(process.env.MONGODB_ATLAS_CONNECTION_STRING, { useNewUrlParser: true }); 
     
 // Connecting to the database
 const connect = mongoose.connection;
