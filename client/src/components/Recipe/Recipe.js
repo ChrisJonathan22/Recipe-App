@@ -1,3 +1,4 @@
+import { urlencoded } from 'body-parser';
 import React from 'react';
 import './Recipe.scss';
 
@@ -12,16 +13,26 @@ const Recipe = (props) => {
     return (
         <div>
             <div id = "recipe-preview-container">
-                <h2 className='recipe-title'>{recipe.title}</h2>
-                <div className='clear-title'></div>
-                <img alt = {recipe.title} src = {recipe.image} />
-                <p className='recipe-info'>Duration:</p>
-                <p className='recipe-content'>{recipe.duration}</p>
-                <p className='recipe-info'>Steps:</p>
-                <p className='recipe-content recipe-steps'>{recipe.steps}</p>
-                <p className='recipe-info'>Difficulty:</p>
-                <div id="stars-outer" style={{ display: 'inline-block' }}>
-                    <div id="stars-inner" style={{ width: `${starPercentageRounded}` }}></div>
+                <div className="recipe-image" style={{ backgroundImage: `url(${recipe.image})` }}></div>
+                <div className="recipe-details">
+                    <h2 className='recipe-title'>{recipe.title}</h2>
+                    <div className='clear-title'></div>
+                    
+                    <p className='recipe-info'>Steps:</p>
+                    <p className='recipe-content recipe-steps'>{recipe.steps}</p>
+                    <div className="recipe-details--bottom">
+                        <div className="recipe-details--ratings">
+                            <p className='recipe-info'>Difficulty:</p>
+                            <div id="stars-outer" style={{ display: 'inline-block' }}>
+                                <div id="stars-inner" style={{ width: `${starPercentageRounded}` }}></div>
+                            </div>
+                        </div>
+                        <div className="recipe-details--duration">
+                            <p className='recipe-info'>Duration:</p>
+                            <p className='recipe-content'>{recipe.duration}</p>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
