@@ -1,5 +1,7 @@
 /* Recipes page title and paragraph styles */
 
+@import "../../index.scss";
+
 #recipes-title {
     text-align: center;
     padding-top: 50px;
@@ -11,7 +13,7 @@
 
 #recipes-para {
     text-align: center;
-    padding-bottom: 100px;
+    padding-bottom: 40px;
 
     @media screen and (max-width: '480px') {
         padding-bottom: 10px;
@@ -20,7 +22,7 @@
     p {
         font-size: 30px;
         font-weight: 100;
-        color: #EB6864;
+        color: $primary-color;
 
         @media screen and (max-width: '480px') {
             font-size: 1.4em;
@@ -42,15 +44,16 @@
 
     #recipes-left {
         background-color: whitesmoke;
-        border: 2px #000 solid;
+        border: 2px $color-black solid;
         padding: 10px;
         width: 30%;
         height: auto;
         float: left;
         overflow: auto;
 
-        @media screen and (max-width: '480px') {
+        @media screen and (max-width: 720px) {
             width: 100%;
+            margin-bottom: 40px;
         }
 
         #recipes-list-title {
@@ -70,17 +73,24 @@
         
             .recipe-item {
                 padding: 10px;
-                background-color: #fff;
-                color: #EB6864;
+                background-color: $color-white;
+                color: $primary-color;
                 margin-bottom: 10px;
                 overflow: auto;
         
                 &:hover {
-                    background-color: #EB6864;
-                    color: #fff;
+                    background-color: $primary-color;
+                    color: $color-white;
                     transition-duration: .5s;
                 }
             }
+        }
+    }
+
+    #recipes-right {
+        @media (max-width: 720px) {
+            width: 100%;
+            margin: 0 0 40px 0;
         }
     }
     

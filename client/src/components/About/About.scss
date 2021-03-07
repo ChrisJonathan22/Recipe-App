@@ -1,5 +1,7 @@
+@import "../../index.scss";
+
 #about-title {
-    color: black;
+    color: $color-black;
     text-align: center;
     padding-top: 50px;
 
@@ -17,10 +19,10 @@
     padding-bottom: 10px;
 
     img {
-        width: 70%;
+        width: 50%;
 
-        @media screen and (min-width: '1080px') {
-            height: 600px;
+        @media screen and (max-width: 720px) {
+            width: 70%;
         }
     }
 }
