@@ -1,7 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&family=Roboto+Condensed:ital,wght@0,300;1,400&display=swap');
+
+
+// Variables
+$star-color: #f8ce0b;
+$primary-color: #EB6864;
+$color-black: #000;
+$color-white: #fff;
+$box-shadow-color: #00000059;
+
 * {
     padding: 0;
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Roboto Condensed', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif !important;
 }
 
 

@@ -12,7 +12,7 @@ const Recipe = (props) => {
     const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
     return (
         <div>
-            <div id = "recipe-preview-container">
+            <div className="recipe-preview-container">
                 <div className="recipe-image" style={{ backgroundImage: `url(${recipe.image})` }}></div>
                 <div className="recipe-details">
                     <h2 className='recipe-title'>{recipe.title}</h2>
