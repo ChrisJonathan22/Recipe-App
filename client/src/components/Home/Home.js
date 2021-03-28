@@ -1,6 +1,6 @@
 import React from 'react';
 import './Home.scss';
-import  Salmon from '../../../src/images/Salmon.jpg';
+import  Salmon from '../../../src/images/Low-Def/Salmon.jpg';
 
 const Home = () => {
     return (
