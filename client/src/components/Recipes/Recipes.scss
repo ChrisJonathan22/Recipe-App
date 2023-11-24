@@ -10,7 +10,6 @@
         font-size: 1.7em;
     }
 }
-
 #recipes-para {
     text-align: center;
     padding-bottom: 40px;
@@ -55,7 +54,6 @@
             width: 100%;
             margin-bottom: 40px;
         }
-
         #recipes-list-title {
             text-align: center;
             padding-bottom: 10px;
@@ -64,20 +62,19 @@
                 text-decoration-line: underline;
             }
         }
-        
-        #recipes-list-container  {
-        
+        #recipes-list-container {
+
             Link {
                 text-decoration: none;
             }
-        
+
             .recipe-item {
                 padding: 10px;
                 background-color: $color-white;
                 color: $primary-color;
                 margin-bottom: 10px;
                 overflow: auto;
-        
+
                 &:hover {
                     background-color: $primary-color;
                     color: $color-white;
@@ -86,15 +83,11 @@
             }
         }
     }
-
     #recipes-right {
         @media (max-width: 720px) {
             width: 100%;
             margin: 0 0 40px 0;
         }
     }
-    
 }
-
 /* The End */
-
