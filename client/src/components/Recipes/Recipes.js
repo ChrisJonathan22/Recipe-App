@@ -32,10 +32,9 @@ class Recipes extends Component {
         // Local server
         // this.fetchAllRecipes('http://localhost:5000/api/recipes');
         // Live server
-        this.fetchAllRecipes('https://react-recipe-app-19.herokuapp.com/api/recipes');
+        // this.fetchAllRecipes('https://react-recipe-app-19.herokuapp.com/api/recipes');
+        this.fetchAllRecipes('https://recipe-app-server.onrender.com/api/recipes');
     }
-
-
 
     render() {
         const { recipes, loading } = this.state;

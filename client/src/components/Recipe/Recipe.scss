@@ -1,7 +1,7 @@
 @import "../../index.scss";
 
 /* Recipe preview */
- .recipe-preview-container {
+.recipe-preview-container {
     text-align: center;
     border-radius: 20px;
     width: 500px;
@@ -15,11 +15,9 @@
         font-size: 18px;
         font-family: 'Montserrat', sans-serif !important;
     }
-
     .recipe-content {
         font-size: 16px;
     }
-
     .recipe-image {
         width: 100%;
         min-height: 400px;
@@ -41,7 +39,6 @@
             font-size: 1.7em;
         }
     }
-
     img {
         margin-top: 30px;
         margin-bottom: 30px;
@@ -59,7 +56,6 @@
         text-align: center;
         font-family: 'Roboto Condensed', sans-serif;
     }
-
     .recipe-details--bottom {
         display: flex;
         flex-wrap: wrap;
@@ -86,7 +82,6 @@
             font-weight: 900;
             color: #CCC;
         }
-
         #stars-inner {
             position: absolute;
             top: 0;
@@ -104,8 +99,6 @@
         }
     }
 }
-
-
 /* Responsive */
 @media screen and (max-width: 575px) {
     .recipe-preview-container {
@@ -132,4 +125,5 @@
         }
     }
 }
+
 /* The End */
