@@ -9,7 +9,7 @@ mongoose.connect(process.env.MONGODB_ATLAS_CONNECTION_STRING, { useNewUrlParser:
 const connect = mongoose.connection;
 
 // Create a Schema or db structure
-let recipeSchema = new mongoose.Schema({
+let schema = new mongoose.Schema({
     title: String,
     image: String,
     duration: String,
@@ -18,11 +18,11 @@ let recipeSchema = new mongoose.Schema({
 });
 
 // Create a model/ collection
-const recipes = mongoose.model('recipes', recipeSchema);
+const Model = mongoose.model("recipes", schema);
 
 
 // Export the connection and the model
 module.exports.connect = connect;
-module.exports.recipes = recipes;
+module.exports.Model = Model;
 
 
