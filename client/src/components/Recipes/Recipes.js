@@ -1,43 +1,46 @@
-import React, { Component } from 'react';
+import React, { useState ,useEffect } from 'react';
 import Spinner from '../Spinner/Spinner';
 import RecipeForm from '../RecipeForm/RecipeForm';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
 import './Recipes.scss';
 
-class Recipes extends Component {
-    constructor(){
-        super();
-        this.state = {
-            recipes: [],
-            loading: true,
-        };
-        this.fetchAllRecipes = this.fetchAllRecipes.bind(this);
-        this.getNewRecipe = this.getNewRecipe.bind(this);
-    }
+function Recipes () {
+    const [recipes, storeRecipes] = useState([]);
+    const [loading, setLoadingState] = useState(true);
 
-    async fetchAllRecipes(endpoint) {
-        let result = await Axios.get(endpoint);
-        this.setState( { recipes: result.data.recipes, loading: false }, () => console.log('Recipes fetched...', result.data.recipes[1]) )
+    async function fetchAllRecipes(endpoint) {
+        try {
+            let result = await Axios.get(endpoint);
+            storeRecipes([...result.data.recipes]);
+        } catch(err) {
+            console.log("Oops...there is an error");
+            console.log(err);
+        }
     } 
+
+    useEffect(() => {
+        fetchAllRecipes('http://localhost:3001/api/recipes');
+        // Local server
+        // fetchAllRecipes('http://localhost:6000/api/recipes');
+        // Live server
+        // this.fetchAllRecipes('https://react-recipe-app-19.herokuapp.com/api/recipes');
+        // this.fetchAllRecipes('https://recipe-app-server.onrender.com/api/recipes');
+    }, []);
+
+    useEffect(() => {
+        if (recipes.length !== 0) {
+            setLoadingState(false);
+        }
+    }, [recipes])
 
     // This method will be passed on to the RecipeForm component
     // From within the RecipeForm component each newly added recipe object will be passed to the method
     // The new recipe will be received and added to the array of recipes and displayed
-    getNewRecipe (recipe) {
-        this.setState({ recipes: [...this.state.recipes, recipe] });
+    function getNewRecipe (recipe) {
+        storeRecipes([...recipes, recipe]);
     }
 
-    componentDidMount() {
-        // Local server
-        // this.fetchAllRecipes('http://localhost:5000/api/recipes');
-        // Live server
-        // this.fetchAllRecipes('https://react-recipe-app-19.herokuapp.com/api/recipes');
-        this.fetchAllRecipes('https://recipe-app-server.onrender.com/api/recipes');
-    }
-
-    render() {
-        const { recipes, loading } = this.state;
         return (
             <div>
                 <div id = 'recipes-title'>
@@ -56,18 +59,17 @@ class Recipes extends Component {
                                 <Spinner />   
                                 :
                                 <ul>
-                                    {  
-                                        recipes.map(recipe =>  <Link key = {recipe._id} to={{ pathname: `/${recipe._id}`, singleRecipe: `${JSON.stringify(recipe)}` }} style={{ textDecoration: 'none' }}><li className='recipe-item' value={recipe.title} onClick = {this.fetchRecipe}>{recipe.title}</li></Link>)
+                                    {
+                                        recipes.map(recipe => <Link key = {recipe._id ? recipe._id : 0 } to={{ pathname: `/${recipe._id ? recipe._id : 0}`, singleRecipe: `${JSON.stringify(recipe)}` }} style={{ textDecoration: 'none' }}><li className='recipe-item' value={recipe.title} onClick = {getNewRecipe}>{recipe.title}</li></Link>)
                                     }
                                 </ul>
                             }
                         </div>
                     </div>
-                    <RecipeForm getNewRecipe={this.getNewRecipe} />
+                    <RecipeForm getNewRecipe={getNewRecipe} />
                 </div>
             </div>
         );
-    }
 }
 
 

@@ -25,12 +25,11 @@ app.use((req, res, next) => { //allow cross origin requests
         next();
 });
 
-// Import database
-const { connect } = require('./database');
-// Import model/ collection
-const { recipes } = require('./database'); 
+// Import database & model/ collection
+const { connect, Model } = require('./database');
+
 // Set the port number to 5000
-const port = 5000;
+const port = 3001;
 
 // Handling the database errors
 connect.on('error', console.error.bind(console, 'connection error:'));
@@ -41,8 +40,8 @@ connect.once('open', () => {
 // Creating a route for POST requests from the form
 app.post('/upload',(req, res) => {
         // To upload multiple images it would be upload.array() and req.files and also you would have the change the type of the image within the schema from Object to Array since the result will be a list of images.
-        const recipe = new recipes({ title: req.body.title, image: req.body.image, duration: req.body.duration, steps: req.body.steps, rating: req.body.rating });        
-        recipe.save((err, recipes) => {
+        const recipe = new Model({ title: req.body.title, image: req.body.image, duration: req.body.duration, steps: req.body.steps, rating: req.body.rating });        
+        recipe.save((err) => {
         if(err) console.log(err);
         else {
                 console.log('New recipe successfully added...');
@@ -56,7 +55,7 @@ app.post('/upload',(req, res) => {
 
 // Receive a post request with the title, do a search and then return the found document.
 app.post('/api/recipes/single', (req, res) => {
-        recipes.findOne({title: req.body.title}, (err, data) => {
+        Model.findOne({title: req.body.title}, (err, data) => {
                 if(err) console.log(err);
                 else {
                         res.json(data);
@@ -67,14 +66,11 @@ app.post('/api/recipes/single', (req, res) => {
 
 
 // Find all recipes stored
-app.get('/api/recipes', (req, res) => {
-        recipes.find((err, data) => {
-                if(err) console.log(err);
-                else {
-                        res.json({recipes: data});
-                        console.log('Recipes successfully found.'); 
-                }  
-        });
+app.get('/api/recipes', async (req, res) => {
+        console.log("Get request received...");
+        const data = await Model.find({});
+        res.json({recipes: data});
+        // console.log("Collection information", connect.collections);
 });
 
 
