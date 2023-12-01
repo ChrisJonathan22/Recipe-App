@@ -3,13 +3,15 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 // Initiating a connection to the database
+// Make sure that the connection string has the db name after.net/ otherwise a new db called test will be created
+// Therefore you will be looking at the wrong db
 mongoose.connect(process.env.MONGODB_ATLAS_CONNECTION_STRING, { useNewUrlParser: true }); 
     
 // Connecting to the database
 const connect = mongoose.connection;
 
 // Create a Schema or db structure
-let schema = new mongoose.Schema({
+const recipeSchema = new mongoose.Schema({
     title: String,
     image: String,
     duration: String,
@@ -18,7 +20,9 @@ let schema = new mongoose.Schema({
 });
 
 // Create a model/ collection
-const Model = mongoose.model("recipes", schema);
+const Model = mongoose.model("Recipe", recipeSchema);
+
+// console.log(connect);
 
 
 // Export the connection and the model

@@ -25,10 +25,9 @@ app.use((req, res, next) => { //allow cross origin requests
         next();
 });
 
-// Import database
-const { connect } = require('./database');
-// Import model/ collection
-const { Model } = require('./database'); 
+// Import database & model/ collection
+const { connect, Model } = require('./database');
+
 // Set the port number to 5000
 const port = 3001;
 
@@ -42,7 +41,7 @@ connect.once('open', () => {
 app.post('/upload',(req, res) => {
         // To upload multiple images it would be upload.array() and req.files and also you would have the change the type of the image within the schema from Object to Array since the result will be a list of images.
         const recipe = new Model({ title: req.body.title, image: req.body.image, duration: req.body.duration, steps: req.body.steps, rating: req.body.rating });        
-        recipe.save((err, recipes) => {
+        recipe.save((err) => {
         if(err) console.log(err);
         else {
                 console.log('New recipe successfully added...');
@@ -67,17 +66,11 @@ app.post('/api/recipes/single', (req, res) => {
 
 
 // Find all recipes stored
-app.get('/api/recipes', (req, res) => {
+app.get('/api/recipes', async (req, res) => {
         console.log("Get request received...");
-        console.log("Model", Model);
-        Model.find({}, (err, data) => {
-                if(err) console.log(err);
-                else {
-                        console.log("Recipes haha", data);
-                        res.json({recipes: data});
-                        console.log('Recipes successfully found.'); 
-                }  
-        });
+        const data = await Model.find({});
+        res.json({recipes: data});
+        // console.log("Collection information", connect.collections);
 });
 
 
