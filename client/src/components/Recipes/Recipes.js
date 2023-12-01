@@ -56,11 +56,11 @@ function Recipes () {
                         </div>
                         <div id = 'recipes-list-container'>
                             { loading ? 
-                                <Spinner />   
+                                <Spinner />
                                 :
                                 <ul>
                                     {
-                                        recipes.map(recipe => <Link key = {recipe._id ? recipe._id : 0 } to={{ pathname: `/${recipe._id ? recipe._id : 0}`, singleRecipe: `${JSON.stringify(recipe)}` }} style={{ textDecoration: 'none' }}><li className='recipe-item' value={recipe.title} onClick = {getNewRecipe}>{recipe.title}</li></Link>)
+                                        recipes.map(recipe => <Link key = {recipe._id} to={{ pathname: `/${recipe._id}`, singleRecipe: `${JSON.stringify(recipe)}` }} style={{ textDecoration: 'none' }}><li className='recipe-item' value={recipe.title}>{recipe.title}</li></Link>)
                                     }
                                 </ul>
                             }
