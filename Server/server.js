@@ -38,19 +38,24 @@ connect.once('open', () => {
 });
 
 // Creating a route for POST requests from the form
-app.post('/upload',(req, res) => {
+app.post('/api/upload', async (req, res) => {
         // To upload multiple images it would be upload.array() and req.files and also you would have the change the type of the image within the schema from Object to Array since the result will be a list of images.
-        const recipe = new Model({ title: req.body.title, image: req.body.image, duration: req.body.duration, steps: req.body.steps, rating: req.body.rating });        
-        recipe.save((err) => {
-        if(err) console.log(err);
-        else {
-                console.log('New recipe successfully added...');
+        const recipe = new Model({ title: req.body.title, image: req.body.image, duration: req.body.duration, steps: req.body.steps, rating: req.body.rating });    
+        try {
+                await recipe.save();
+        }    catch {
+                console.log("There was an error when attempting to store the recipe");
         }
-        
-        // setTimeout(() => {res.redirect('http://localhost:3000/')}, 500);           
 });
-        // setTimeout(() => {res.redirect('http://localhost:3000/')}, 500);
+
+// Find all recipes stored
+app.get('/api/recipes', async (req, res) => {
+        console.log("Get request received...");
+        const data = await Model.find({});
+        res.json({recipes: data});
+        // console.log("Collection information", connect.collections);
 });
+
 
 
 // Receive a post request with the title, do a search and then return the found document.
@@ -65,14 +70,10 @@ app.post('/api/recipes/single', (req, res) => {
 });
 
 
-// Find all recipes stored
-app.get('/api/recipes', async (req, res) => {
-        console.log("Get request received...");
-        const data = await Model.find({});
-        res.json({recipes: data});
-        // console.log("Collection information", connect.collections);
-});
+// The code below was written before I decided to store the images as a base64 string rather than as chunks, 
+// so therefore the code below is no longer required and can be deleted in future releases
 
+/*
 
 // Basic route to get all files GET /files
 app.get('/files', (req, res) => {
@@ -125,5 +126,6 @@ app.get('/image/:filename', (req, res) =>{
         });
 });
 
+*/
 
 app.listen(port, console.log(`The Recipe App is running on port: ${port}`));
