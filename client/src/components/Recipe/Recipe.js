@@ -31,7 +31,6 @@ const Recipe = (props) => {
                             <p className='recipe-content'>{recipe.duration}</p>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
