@@ -100,7 +100,7 @@ export default class RecipeForm extends Component {
             // Live server
             //https://react-recipe-app-19.herokuapp.com/upload
             //
-            fetch('http://localhost:3001/api/upload', {
+            fetch('https://recipe-app-server.onrender.com/api/upload', {
                 method: 'post',
                 redirect: 'follow',
                 headers: {

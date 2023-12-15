@@ -20,12 +20,10 @@ function Recipes () {
     } 
 
     useEffect(() => {
-        fetchAllRecipes('http://localhost:3001/api/recipes');
-        // Local server
-        // fetchAllRecipes('http://localhost:6000/api/recipes');
         // Live server
-        // this.fetchAllRecipes('https://react-recipe-app-19.herokuapp.com/api/recipes');
-        // this.fetchAllRecipes('https://recipe-app-server.onrender.com/api/recipes');
+        fetchAllRecipes('https://recipe-app-server.onrender.com/api/recipes');
+        // Local server
+        // fetchAllRecipes('http://localhost:3001/api/recipes');
     }, []);
 
     useEffect(() => {

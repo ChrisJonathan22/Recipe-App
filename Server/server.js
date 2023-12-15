@@ -28,7 +28,7 @@ app.use((req, res, next) => { //allow cross origin requests
 // Import database & model/ collection
 const { connect, Model } = require('./database');
 
-// Set the port number to 5000
+// Set the port number to 3001
 const port = 3001;
 
 // Handling the database errors
