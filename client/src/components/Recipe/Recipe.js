@@ -3,8 +3,6 @@ import './Recipe.scss';
 
 const Recipe = (props) => {
     let recipe = JSON.parse(props.location.singleRecipe);
-    console.log('Single recipe', props.location.singleRecipe);
-    console.log(props);
     // Take the recipe rating and find its percentage value.
     const starPercentage = (recipe.rating / 5) * 100;
     // Round up the percentage value and add the percentage symbol to the value.
