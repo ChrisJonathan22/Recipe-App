@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/ChrisJonathan22/Recipe-App#readme",
   "dependencies": {
+    "@reduxjs/toolkit": "^2.0.1",
     "axios": "^0.19.0",
     "body-parser": "^1.18.3",
     "concurrently": "^4.0.1",
@@ -34,8 +35,10 @@
     "multer-gridfs-storage": "^3.2.3",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-redux": "^9.1.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "redux": "^5.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.1",
