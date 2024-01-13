@@ -9,10 +9,14 @@ function Recipes () {
     const [recipes, storeRecipes] = useState([]);
     const [loading, setLoadingState] = useState(true);
 
+    console.log("Current state of recipes...", recipes);
+
     async function fetchAllRecipes(endpoint) {
         try {
             let result = await Axios.get(endpoint);
             storeRecipes([...result.data.recipes]);
+            // sessionStorage.setItem('RecipesState', JSON.stringify(recipes));
+            // sessionStorage.setItem('RecipesState', JSON.stringify(result.data.recipes));
         } catch(err) {
             console.log("Oops...there is an error");
             console.log(err);
@@ -29,8 +33,10 @@ function Recipes () {
     useEffect(() => {
         if (recipes.length !== 0) {
             setLoadingState(false);
+            // Recipes is too large so I need to use Redux?
+            // localStorage.setItem('RecipesState', JSON.stringify(recipes));
         }
-    }, [recipes])
+    }, [recipes]);
 
     // This method will be passed on to the RecipeForm component
     // From within the RecipeForm component each newly added recipe object will be passed to the method
@@ -69,6 +75,8 @@ function Recipes () {
             </div>
         );
 }
+
+// Look to add Material UI if not already implemented and revamp the design
 
 
 export default Recipes;
