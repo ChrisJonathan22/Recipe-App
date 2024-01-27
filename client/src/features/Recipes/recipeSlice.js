@@ -1,16 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+    recipes: []
+};
+
 export const recipeSlice = createSlice({
     name: 'recipe',
-    initialState: {
-        recipes: []
-    },
+    initialState,
     reducers: {
-        storeRecipes: (state, action) => {
+        saveRecipes: (state, action) => {
             state.recipes = action.payload;
         }
     }
 });
 
-export const { storeRecipes } = recipeSlice.actions;
+export const { saveRecipes } = recipeSlice.actions;
+
 export default recipeSlice.reducer;
