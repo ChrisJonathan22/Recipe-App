@@ -1,22 +1,24 @@
-import React, { useState ,useEffect } from 'react';
+import React, { useState , useEffect } from 'react';
 import Spinner from '../Spinner/Spinner';
 import RecipeForm from '../RecipeForm/RecipeForm';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveRecipes } from '../../features/Recipes/recipeSlice';
 import './Recipes.scss';
 
 function Recipes () {
-    const [recipes, storeRecipes] = useState([]);
     const [loading, setLoadingState] = useState(true);
 
-    console.log("Current state of recipes...", recipes);
+    const recipesFromReduxState = useSelector((state) => state.saveRecipes.recipes);
+    const dispatch = useDispatch();
+    
 
     async function fetchAllRecipes(endpoint) {
         try {
-            let result = await Axios.get(endpoint);
-            storeRecipes([...result.data.recipes]);
-            // sessionStorage.setItem('RecipesState', JSON.stringify(recipes));
-            // sessionStorage.setItem('RecipesState', JSON.stringify(result.data.recipes));
+            let dbResult = await Axios.get(endpoint);
+            dispatch(saveRecipes(dbResult.data.recipes));
+            console.log("Recipes fetched...");
         } catch(err) {
             console.log("Oops...there is an error");
             console.log(err);
@@ -25,24 +27,25 @@ function Recipes () {
 
     useEffect(() => {
         // Live server
-        fetchAllRecipes('https://recipe-app-server.onrender.com/api/recipes');
+            if (recipesFromReduxState.length === 0) {
+                fetchAllRecipes('https://recipe-app-server.onrender.com/api/recipes');
+            }
+
         // Local server
         // fetchAllRecipes('http://localhost:3001/api/recipes');
-    }, []);
+    });
 
     useEffect(() => {
-        if (recipes.length !== 0) {
+        if (recipesFromReduxState.length !== 0) {
             setLoadingState(false);
-            // Recipes is too large so I need to use Redux?
-            // localStorage.setItem('RecipesState', JSON.stringify(recipes));
         }
-    }, [recipes]);
+    }, [recipesFromReduxState]);
 
     // This method will be passed on to the RecipeForm component
     // From within the RecipeForm component each newly added recipe object will be passed to the method
-    // The new recipe will be received and added to the array of recipes and displayed
+    // The new recipe will be received and added to the array of recipes (from Redux state) and displayed
     function getNewRecipe (recipe) {
-        storeRecipes([...recipes, recipe]);
+        dispatch(saveRecipes([...recipesFromReduxState, recipe]));
     }
 
         return (
@@ -64,7 +67,7 @@ function Recipes () {
                                 :
                                 <ul>
                                     {
-                                        recipes.map(recipe => <Link key = {recipe._id} to={{ pathname: `/${recipe._id}`, singleRecipe: `${JSON.stringify(recipe)}` }} style={{ textDecoration: 'none' }}><li className='recipe-item' value={recipe.title}>{recipe.title}</li></Link>)
+                                        recipesFromReduxState.map(recipe => <Link key = {recipe._id} to={{ pathname: `/${recipe._id}`, singleRecipe: `${JSON.stringify(recipe)}` }} style={{ textDecoration: 'none' }}><li className='recipe-item' value={recipe.title}>{recipe.title}</li></Link>)
                                     }
                                 </ul>
                             }
