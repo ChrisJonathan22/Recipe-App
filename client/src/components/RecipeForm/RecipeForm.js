@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
 import './RecipeForm.scss';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import SaveIcon from '@mui/icons-material/Save';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
+import CardActions from '@mui/material/CardActions';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
 
 export default class RecipeForm extends Component {
     constructor(props) {
@@ -42,7 +52,7 @@ export default class RecipeForm extends Component {
         Do a fetch request and save the data inside the state, then display it.
     */
    getData(files) {
-        let file = document.getElementById('form-image').files[0];
+        let file = document.getElementById('contained-button-file').files[0];
         if(file) {
             let reader = new FileReader();
             reader.onload = ((theFile) => {
@@ -78,22 +88,22 @@ export default class RecipeForm extends Component {
         if (postData) {
             // This object contains all the data entered including the image as base64
             let obj = {
-                title: document.getElementById('form-title').value,
+                title: document.querySelector('.form-title #outlined-basic').value,
                 image: this.state.src,
-                duration: document.getElementById('form-duration').value,
-                steps: document.getElementById('form-steps').value,
-                rating: document.getElementById('form-rating').value
+                duration: document.querySelector('.form-duration #outlined-basic').value,
+                steps: document.querySelector('.form-steps #outlined-textarea').value,
+                rating: document.querySelector('.form-rating #outlined-basic').value
             };
 
             this.props.getNewRecipe(obj);
 
             // Reset input fields and the image src within the state
-            document.getElementById('form-title').value = '';
+            document.querySelector('.form-title #outlined-basic').value = '';
             this.setState({ src: '' });
-            document.getElementById('form-duration').value = '';
-            document.getElementById('form-steps').value = '';
-            document.getElementById('form-rating').value = '';
-            document.getElementById('form-image').value = '';
+            document.querySelector('.form-duration #outlined-basic').value = '';
+            document.querySelector('.form-steps #outlined-textarea').value = '';
+            document.querySelector('.form-rating #outlined-basic').value = '';
+            document.getElementById('contained-button-file').value = '';
 
             
             // Send the data
@@ -128,14 +138,46 @@ export default class RecipeForm extends Component {
         return (
             <div id = 'recipes-right'>
                 <div id = 'recipes-form-holder'>
-                    <form >
-                        <input id = 'form-title' type = 'text' placeholder = 'Enter the title' name = 'title' autoComplete = 'off' />
-                        <input id = 'form-image' type = 'file' placeholder = 'Upload an image' name = 'image' />
-                        <input id = 'form-duration' type = 'text' placeholder = 'Enter the duration' name = 'duration' autoComplete = 'off'/>
-                        <textarea id = 'form-steps' placeholder = 'Enter steps...' name = 'steps'></textarea>
-                        <input id = 'form-rating' type = 'text' placeholder = 'Enter the difficulty between 0-5' name = 'rating' />
-                        <input id = 'form-button' type = 'button' value = 'Submit' onClick = {this.showMessageAndSendData} onMouseEnter={this.getData} />
-                    </form>
+
+                    <Card sx={{ minWidth: 275 }}>
+                        <CardContent>
+                            <form>
+                                <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '60%' } }} Validate autoComplete="off">
+                                    <TextField id="outlined-basic" className='form-title' label="Title" placeholder='Enter the title' name='title' variant="outlined" />
+                                </Box>
+            
+                                <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '60%' } }} Validate>
+                                    <input
+                                        accept="image/*"
+                                        id="contained-button-file"
+                                        type="file"
+                                        hidden
+                                    />
+                                    <label htmlFor="contained-button-file">
+                                        <Button id='form-image' variant="contained" color="primary" component='span' startIcon={<CloudUploadIcon />}>
+                                        Upload image
+                                        </Button>
+                                    </label>
+                                </Box>
+
+                                <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '60%' },}} Validate autoComplete="off">
+                                    <TextField id="outlined-basic" className='form-duration' label="Duration" placeholder='Enter the duration' name='duration' variant="outlined" />
+                                </Box>
+
+                                <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '60%' },}} Validate autoComplete="off">
+                                    <TextField multiline fullWidth id="outlined-textarea" className='form-steps' label="Steps" placeholder='Enter the steps...' name='steps' variant="outlined" />
+                                </Box>
+                       
+                                <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '60%' },}} Validate autoComplete="off">
+                                    <TextField id="outlined-basic" className='form-rating' label="Rating" placeholder='Enter the difficulty between 0-5' name='rating' variant="outlined" />
+                                </Box>
+                            </form>
+                        </CardContent>
+
+                        <CardActions>
+                            <Button id = 'form-button' color='primary' endIcon={<SaveIcon />} value = 'Submit' variant="contained" onClick = {this.showMessageAndSendData} onMouseEnter={this.getData}>Submit</Button>
+                        </CardActions>
+                    </Card>
                     {
                         showMe ? 
                             <div id = 'message'>
