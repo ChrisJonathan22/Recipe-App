@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import { store } from './store';
 import { Provider } from 'react-redux';
 
+
 const root = createRoot(document.getElementById("root"));
 
 root.render(
