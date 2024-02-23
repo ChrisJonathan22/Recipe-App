@@ -6,9 +6,29 @@ import Button from '@mui/material/Button';
 import SaveIcon from '@mui/icons-material/Save';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
-import CardActions from '@mui/material/CardActions';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+
+
+import { createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      light: '#757ce8',
+      main: '#3f50b5',
+      dark: '#002884',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ff7961',
+      main: '#f44336',
+      dark: '#ba000d',
+      contrastText: '#000',
+    },
+  },
+});
+
 
 
 export default class RecipeForm extends Component {
@@ -141,12 +161,11 @@ export default class RecipeForm extends Component {
 
                     <Card sx={{ minWidth: 275 }}>
                         <CardContent>
-                            <form>
-                                <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '60%' } }} Validate autoComplete="off">
+                                <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '60%' } }} validate autoComplete="off">
                                     <TextField id="outlined-basic" className='form-title' label="Title" placeholder='Enter the title' name='title' variant="outlined" />
-                                </Box>
+
             
-                                <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '60%' } }} Validate>
+                                
                                     <input
                                         accept="image/*"
                                         id="contained-button-file"
@@ -154,29 +173,21 @@ export default class RecipeForm extends Component {
                                         hidden
                                     />
                                     <label htmlFor="contained-button-file">
-                                        <Button id='form-image' variant="contained" color="primary" component='span' startIcon={<CloudUploadIcon />}>
+                                        <Button style={{ backgroundColor: theme.palette.secondary.light }} id='form-image' variant="contained" color="primary" component='span' size='medium' endIcon={<CloudUploadIcon />}>
                                         Upload image
                                         </Button>
                                     </label>
-                                </Box>
+                   
 
-                                <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '60%' },}} Validate autoComplete="off">
                                     <TextField id="outlined-basic" className='form-duration' label="Duration" placeholder='Enter the duration' name='duration' variant="outlined" />
-                                </Box>
 
-                                <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '60%' },}} Validate autoComplete="off">
                                     <TextField multiline fullWidth id="outlined-textarea" className='form-steps' label="Steps" placeholder='Enter the steps...' name='steps' variant="outlined" />
-                                </Box>
                        
-                                <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '60%' },}} Validate autoComplete="off">
                                     <TextField id="outlined-basic" className='form-rating' label="Rating" placeholder='Enter the difficulty between 0-5' name='rating' variant="outlined" />
-                                </Box>
-                            </form>
-                        </CardContent>
 
-                        <CardActions>
-                            <Button id = 'form-button' color='primary' endIcon={<SaveIcon />} value = 'Submit' variant="contained" onClick = {this.showMessageAndSendData} onMouseEnter={this.getData}>Submit</Button>
-                        </CardActions>
+                                    <Button style={{ backgroundColor: theme.palette.secondary.light }} id = 'form-button' color='primary' endIcon={<SaveIcon />} value = 'Submit' variant="contained" onClick = {this.showMessageAndSendData} onMouseEnter={this.getData}>Submit</Button>
+                                </Box>
+                        </CardContent>
                     </Card>
                     {
                         showMe ? 

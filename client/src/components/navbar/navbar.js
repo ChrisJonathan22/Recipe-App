@@ -15,15 +15,15 @@ const Navbar =  () => {
                       <li className="nav-item active navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse.show" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
                         <Link className="nav-link" exact to = '/'>Home<span className="sr-only">(current)</span></Link>
                       </li>
-                      <li className="nav-item navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse.show" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
+                      {/* <li className="nav-item navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse.show" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
                         <Link className="nav-link" to = '/recipes'>Recipes</Link>
-                      </li>
-                      <li className="nav-item navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse.show" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
+                      </li> */}
+                      {/* <li className="nav-item navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse.show" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
                         <Link className="nav-link" to = '/about'>About</Link>
-                      </li>
-                      <li className="nav-item navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse.show" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
+                      </li> */}
+                      {/* <li className="nav-item navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse.show" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
                         <Link className="nav-link" to = '/contact'>Contact</Link>
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
               </nav>
