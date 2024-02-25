@@ -1,10 +1,9 @@
-import React from 'react';
-import { redirect, Link, useLocation, useNavigate } from 'react-router-dom';
-
+import React, {useState , useEffect} from 'react';
 import './Recipe.scss';
-
+import { redirect, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteRecipes } from '../../features/Recipes/recipeSlice';
+import Axios from 'axios';
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -12,6 +11,27 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+
+import AlertMessage from '../AlertMessage/AlertMessage';
+
+import { createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+    palette: {
+      primary: {
+        light: '#757ce8',
+        main: '#3f50b5',
+        dark: '#002884',
+        contrastText: '#fff',
+      },
+      secondary: {
+        light: '#ff7961',
+        main: '#f44336',
+        dark: '#ba000d',
+        contrastText: '#000',
+      },
+    },
+  });
 
 function MediaCard(props) {
     return (
@@ -49,12 +69,11 @@ function MediaCard(props) {
   }
 
 
-
-
-
 export default function Recipe (props)  {
     const location = useLocation();
     const { singleRecipe } = location.state;
+    const [showAlert, setAlertState] = useState(false);
+
 
     let recipe = JSON.parse(singleRecipe);
     // Take the recipe rating and find its percentage value.
@@ -67,8 +86,26 @@ export default function Recipe (props)  {
 
     const navigate = useNavigate();
 
+    const endpoint = "https://recipe-app-server.onrender.com/api/recipes/delete";
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [showAlert]);
+
+
+    function deleteRecipe (recipe) {
+        dispatch(deleteRecipes(recipe));
+        setAlertState(true);
+        setTimeout(() => navigate("/"), 5000);
+        Axios.post(endpoint, { id: recipe._id });
+    }  
+
     return (
         <div>
+            {
+                showAlert? <AlertMessage message="The recipe has been deleted! you will be redirected to the recipes page shortly." /> : null
+            }
+            
             <div className="recipe-preview-container">
                 <div className="recipe-image" style={{ backgroundImage: `url(${recipe.image})` }}></div>
                 <div className="recipe-details">
@@ -90,30 +127,16 @@ export default function Recipe (props)  {
                         </div>
                     </div>
                     <CardActions>
-                    <Link className="nav-link" exact to = '/'>
-                    
-                        {/* <span className="sr-only">(current)</span> */}
-                        <Button variant="contained" color='warning' size="large" onClick={function (event) {
-                            event.preventDefault();
-                            // dispatch(deleteRecipes(recipe));
-                            // Replace the alert with a component to display the message instead
-                            // navigate would have to be delayed for maybe 5 - 10 seconds
-                            alert("The recipe has been deleted! you will be redirected to the recipes page shortly after closing this alert");
-                            navigate("/");
-                        }
-                        }>Delete</Button>
-                    
-                    </Link>
-
-                        
+                        <Link className="nav-link" exact to = '/'>
+                            <Button variant="contained" color='warning' size="large" onClick={function (event) {
+                                event.preventDefault();
+                                deleteRecipe(recipe);
+                            }
+                            } style={{ backgroundColor: theme.palette.secondary.light }}>Delete</Button>
+                        </Link>
                     </CardActions>
                 </div>
-                <h1>Test</h1>
-                {/* <MediaCard imageSrc={recipe.image} title={recipe.title} steps={recipe.steps} difficulty={starPercentageRounded} duration={recipe.duration} /> */}
             </div>
         </div>
     );
-    // Added the ability to delete a recipe from the Redux state
-    // I now need to make an API request to delete an item
-    // followed by a redirect
 };
