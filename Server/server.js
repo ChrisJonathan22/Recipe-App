@@ -69,6 +69,16 @@ app.post('/api/recipes/single', (req, res) => {
         });
 });
 
+// Receive a post request to delete a recipe.
+app.post('/api/recipes/delete', (req) => {
+        const recipeId = req.body.id;
+        Model.deleteOne({ "_id" : ObjectId(recipeId) }, (err) => {
+                if(err) console.log(err);
+                else {
+                        console.log('Recipe deleted');
+                }
+        });
+});
 
 // The code below was written before I decided to store the images as a base64 string rather than as chunks, 
 // so therefore the code below is no longer required and can be deleted in future releases
