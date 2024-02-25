@@ -3,6 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const methodOverride = require('method-override');
+const mongoose = require('mongoose');
+
 
 // Create an express app
 const app = express();
@@ -70,14 +72,9 @@ app.post('/api/recipes/single', (req, res) => {
 });
 
 // Receive a post request to delete a recipe.
-app.post('/api/recipes/delete', (req) => {
+app.post('/api/recipes/delete', async (req) => {
         const recipeId = req.body.id;
-        Model.deleteOne({ "_id" : ObjectId(recipeId) }, (err) => {
-                if(err) console.log(err);
-                else {
-                        console.log('Recipe deleted');
-                }
-        });
+        await Model.deleteOne({ "_id" : new mongoose.Types.ObjectId(recipeId) });
 });
 
 // The code below was written before I decided to store the images as a base64 string rather than as chunks, 
