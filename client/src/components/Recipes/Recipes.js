@@ -113,7 +113,7 @@ function Recipes () {
                                         {/* List view */}
                                         <ul>
                                             {
-                                                recipesFromReduxState.map(recipe => <Link key = {recipe._id} to={{ pathname: `/${recipe._id}`, singleRecipe: `${JSON.stringify(recipe)}` }} style={{ textDecoration: 'none' }}><li className='recipe-item' value={recipe.title}>{recipe.title}</li></Link>)
+                                                recipesFromReduxState.map(recipe => <Link key = {recipe._id} to={{ pathname: `/${recipe._id}`}} state = {{ singleRecipe: `${JSON.stringify(recipe)}` }} style={{ textDecoration: 'none' }}><li className='recipe-item' value={recipe.title}>{recipe.title}</li></Link>)
                                             }
                                         </ul>
                                     </BasicTabs>
@@ -121,7 +121,7 @@ function Recipes () {
                             }
                         </div>
                     </div>
-                    <RecipeForm getNewRecipe={getNewRecipe} />
+                    <RecipeForm getNewRecipe={getNewRecipe} editMode={false} />
                 </div>
             </div>
         );

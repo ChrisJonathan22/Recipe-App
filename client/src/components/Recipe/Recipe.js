@@ -13,6 +13,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import AlertMessage from '../AlertMessage/AlertMessage';
+import RecipeForm from '../RecipeForm/RecipeForm';
 
 import { createTheme } from '@mui/material/styles';
 
@@ -73,6 +74,7 @@ export default function Recipe (props)  {
     const location = useLocation();
     const { singleRecipe } = location.state;
     const [showAlert, setAlertState] = useState(false);
+    const [ editMode, setEditMode ] = useState(false);
 
 
     let recipe = JSON.parse(singleRecipe);
@@ -105,38 +107,52 @@ export default function Recipe (props)  {
             {
                 showAlert? <AlertMessage message="The recipe has been deleted! you will be redirected to the recipes page shortly." /> : null
             }
-            
-            <div className="recipe-preview-container">
-                <div className="recipe-image" style={{ backgroundImage: `url(${recipe.image})` }}></div>
-                <div className="recipe-details">
-                    <h2 className='recipe-title'>{recipe.title}</h2>
-                    <div className='clear-title'></div>
-                    
-                    <p className='recipe-info'>Steps:</p>
-                    <p className='recipe-content recipe-steps'>{recipe.steps}</p>
-                    <div className="recipe-details--bottom">
-                        <div className="recipe-details--ratings">
-                            <p className='recipe-info'>Difficulty:</p>
-                            <div id="stars-outer" style={{ display: 'inline-block' }}>
-                                <div id="stars-inner" style={{ width: `${starPercentageRounded}` }}></div>
+
+            {
+                editMode?
+                <RecipeForm title={recipe.title} image={recipe.image} duration={recipe.duration} steps={recipe.steps} rating={recipe.rating} id={recipe._id} editMode={true} />
+                :
+                <div className="recipe-preview-container">
+                    <div className="recipe-image" style={{ backgroundImage: `url(${recipe.image})` }}></div>
+                    <div className="recipe-details">
+                        <h2 className='recipe-title'>{recipe.title}</h2>
+                        <div className='clear-title'></div>
+                        
+                        <p className='recipe-info'>Steps:</p>
+                        <p className='recipe-content recipe-steps'>{recipe.steps}</p>
+                        <div className="recipe-details--bottom">
+                            <div className="recipe-details--ratings">
+                                <p className='recipe-info'>Difficulty:</p>
+                                <div id="stars-outer" style={{ display: 'inline-block' }}>
+                                    <div id="stars-inner" style={{ width: `${starPercentageRounded}` }}></div>
+                                </div>
+                            </div>
+                            <div className="recipe-details--duration">
+                                <p className='recipe-info'>Duration:</p>
+                                <p className='recipe-content'>{recipe.duration}</p>
                             </div>
                         </div>
-                        <div className="recipe-details--duration">
-                            <p className='recipe-info'>Duration:</p>
-                            <p className='recipe-content'>{recipe.duration}</p>
-                        </div>
+                        <CardActions>
+                            <Link className="nav-link" exact to = '/'>
+                                <Button variant="contained" color='warning' size="large" onClick={function (event) {
+                                    event.preventDefault();
+                                    deleteRecipe(recipe);
+                                }
+                                } style={{ backgroundColor: theme.palette.secondary.light }}>Delete</Button>
+                            </Link>
+                        </CardActions>
+                        <CardActions>
+                            <Link className="nav-link" exact to = '/'>
+                                <Button variant="contained" color='warning' size="large" onClick={function (event) {
+                                    event.preventDefault();
+                                    setEditMode(true);
+                                }
+                                } style={{ backgroundColor: theme.palette.secondary.light }}>Edit</Button>
+                            </Link>
+                        </CardActions>
                     </div>
-                    <CardActions>
-                        <Link className="nav-link" exact to = '/'>
-                            <Button variant="contained" color='warning' size="large" onClick={function (event) {
-                                event.preventDefault();
-                                deleteRecipe(recipe);
-                            }
-                            } style={{ backgroundColor: theme.palette.secondary.light }}>Delete</Button>
-                        </Link>
-                    </CardActions>
                 </div>
-            </div>
+            }
         </div>
     );
 };

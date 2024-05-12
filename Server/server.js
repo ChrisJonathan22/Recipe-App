@@ -50,6 +50,21 @@ app.post('/api/upload', async (req, res) => {
         }
 });
 
+// Creating a route for PUT requests from the form to update recipes
+app.put('/api/edit', async (req, res) => {
+        // To upload multiple images it would be upload.array() and req.files and also you would have the change the type of the image within the schema from Object to Array since the result will be a list of images.
+        try {
+                if (req.body.image) {
+                        await Model.findOneAndUpdate({ _id: req.body.recipe_id }, { title: req.body.title, image: req.body.image, duration: req.body.duration, steps: req.body.steps, rating: req.body.rating });
+                } else {
+                        await Model.findOneAndUpdate({ _id: req.body.recipe_id }, { title: req.body.title, duration: req.body.duration, steps: req.body.steps, rating: req.body.rating });
+                }
+                console.log("The recipe has been successfully edited");
+        }    catch {
+                console.log("There was an error when attempting to update the recipe");
+        }
+});
+
 // Find all recipes stored
 app.get('/api/recipes', async (req, res) => {
         console.log("Get request received...");
